@@ -1,0 +1,37 @@
+ Input parameters:
+ encoder=fft port=50051 p2=MctsAi23i game_num=1 device=cpu actor_path=./model/actor.pt save_path=./results/ppopretrain_vs_MctsAi23i.txt
+ p1_HP:124
+ p2_HP:35
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:0
+ p2_HP:36
+ elapsed_frame:3266
+ Finished 2 round
+ p1_HP:0
+ p2_HP:37
+ elapsed_frame:3302
+ Finished 3 round
+ Input parameters:
+ encoder=fft
+ port=50051
+ p2=MctsAi23i
+ game_num=1
+ device=cpu
+ actor_path=./model/actor.pt
+ save_path=./results/ppopretrain_vs_MctsAi23i.txt
+
+ p1_HP:40
+ p2_HP:0
+ elapsed_frame:2615
+ Finished 1 round
+ p1_HP:133
+ p2_HP:0
+ elapsed_frame:3312
+ Finished 2 round
+ p1_HP:64
+ p2_HP:2
+ elapsed_frame:3600
+ Finished 3 round
+ win_ratio: 78.333, 
+ hp_diff_avg 1.000
