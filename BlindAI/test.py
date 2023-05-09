@@ -1,16 +1,13 @@
 '''
 test.py
+测试开始前，需要根据自己的actor网络修改load_actor_model（）函数来加载相应的模型
 需要输入的参数：
 actor_path: actor网络的保存位置，建议放在/model文件夹下
 save_path:测试结果保存的位置，建议放在/results文件夹下
 actor_name：atcor网络的名字，决定了如何加载模型
-
-测试开始前，需要根据自己的actor网络修改load_actor_model（）函数来加载相应的模型
+参考命令：
+python test.py --actor_path ./model/actor.pt --actor_name RecurrentActor --save_path ./results/ppopretrain_vs_MctsAi23i.txt
 '''
-
-
-
-
 
 import sys
 import argparse
@@ -39,14 +36,15 @@ HIDDEN_SIZE = 512
 RECURRENT_LAYERS = 1
 ACTION_NUM = 40
 
-#加载actor网络， 需要测试其他网络时需要添加新的分支
+#根据actor_name加载相应的网络， 需要测试其他网络时需要添加新的分支
 def load_actor_model(encoder_name, actor_path, device, actor_name = 'RecurrentActor'):
     if actor_name == 'RecurrentActor':
         actor_model = RecurrentActor(STATE_DIM[n_frame][encoder_name], HIDDEN_SIZE, RECURRENT_LAYERS,
                                      get_sound_encoder(encoder_name, n_frame),
                                      action_num=ACTION_NUM)
-        actor_state_dict = torch.load(actor_path, map_location=torch.device(device))
-        actor_model.load_state_dict(actor_state_dict, strict=True)
+        actor_state_dict = torch.load(actor_path)
+        actor_model.load_state_dict(actor_state_dict)
+        actor_model.to(device)
         actor_model.get_init_state(device)  # rnn模型需要初始化状态
     return actor_model
 
@@ -79,7 +77,7 @@ if __name__ == '__main__':
                         help='Choose an encoder for the Blind AI')
     parser.add_argument('--port', type=int, default=50051, help='Port used by DareFightingICE')
     parser.add_argument('--p2', choices=['Sandbox', 'MctsAi23i'], type=str, default='MctsAi23i', help='The opponent AI')
-    parser.add_argument('--game_num', type=int, default=60, help='Number of games to play')
+    parser.add_argument('--game_num', type=int, default=50, help='Number of games to play')
     parser.add_argument('--device', type=str, default='cpu', help='device for test')
     parser.add_argument('--actor_path', type=str, default='./model/actor.pt', help='actor path')  # actor网络路径
     parser.add_argument('--actor_name', type=str, default='RecurrentActor', help='actor name')  # actor网络名字
