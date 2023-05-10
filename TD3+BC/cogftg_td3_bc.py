@@ -18,9 +18,12 @@ from tianshou.env import SubprocVectorEnv, VectorEnvNormObs
 from tianshou.exploration import GaussianNoise
 from tianshou.policy import TD3BCPolicy
 from tianshou.trainer import offline_trainer
+from offline_trainer import offline_trainer
 from tianshou.utils import TensorboardLogger, WandbLogger
 from tianshou.utils.net.common import Net
-from tianshou.utils.net.continuous import Actor, Critic
+# from tianshou.utils.net.continuous import  #Critic #Actor
+from continuous import Actor,Critic
+from fight_agent import get_sound_encoder,STATE_DIM
 
 
 def get_args():
@@ -33,7 +36,7 @@ def get_args():
     parser.add_argument("--buffer-size", type=int, default=1000000)
     parser.add_argument("--hidden-sizes", type=int, nargs="*", default=[256, 256])
     parser.add_argument("--actor-lr", type=float, default=3e-4)
-    parser.add_argument("--critic-lr", type=float, default=3e-4)
+    parser.add_argument("--critic-lr", type=float, default=1e-7) #3e-4
     parser.add_argument("--epoch", type=int, default=200)
     parser.add_argument("--step-per-epoch", type=int, default=5000)
     parser.add_argument("--n-step", type=int, default=3)
@@ -76,7 +79,8 @@ def get_args():
 def test_td3_bc():
     args = get_args()
     # env = gym.make(args.task)
-    observation_space=spaces.Box(low=-1.9, high=1.9, shape=(1600,))
+    n_frame = 1
+    observation_space=spaces.Box(low=-1.9, high=1.9, shape=(STATE_DIM[n_frame]['mel'],))
     action_space = spaces.Box(low=0, high=1, shape=(40,))
     args.state_shape = observation_space.shape #env.observation_space.shape or env.observation_space.n
     args.action_shape = action_space.shape #env.action_space.shape or env.action_space.n
@@ -104,6 +108,7 @@ def test_td3_bc():
 
     # model
     # actor network
+    encoder=get_sound_encoder('mel')
     net_a = Net(
         args.state_shape,
         hidden_sizes=args.hidden_sizes,
@@ -114,6 +119,7 @@ def test_td3_bc():
         action_shape=args.action_shape,
         max_action=args.max_action,
         device=args.device,
+        encoder=encoder
     ).to(args.device)
     actor_optim = torch.optim.Adam(actor.parameters(), lr=args.actor_lr)
 
@@ -131,10 +137,11 @@ def test_td3_bc():
         hidden_sizes=args.hidden_sizes,
         concat=True,
         device=args.device,
+
     )
-    critic1 = Critic(net_c1, device=args.device).to(args.device)
+    critic1 = Critic(net_c1, device=args.device,encoder=encoder).to(args.device)
     critic1_optim = torch.optim.Adam(critic1.parameters(), lr=args.critic_lr)
-    critic2 = Critic(net_c2, device=args.device).to(args.device)
+    critic2 = Critic(net_c2, device=args.device,encoder=encoder).to(args.device)
     critic2_optim = torch.optim.Adam(critic2.parameters(), lr=args.critic_lr)
 
     policy = TD3BCPolicy(
@@ -185,8 +192,8 @@ def test_td3_bc():
     else:  # wandb
         logger.load(writer)
 
-    def save_best_fn(policy):
-        torch.save(policy.state_dict(), os.path.join(log_path, "policy.pth"))
+    def save_best_fn(policy,num=0):
+        torch.save(policy, os.path.join(log_path, str(num)+"policy.pth")) #.state_dict()
 
     def watch():
         if args.resume_path is None:
