@@ -9,7 +9,7 @@ from tianshou.utils import RunningMeanStd
 """
     make sure you have sample data in the right directory
 """
-path='/Users/jin/Downloads/ICE/TD3+BC/Sample/Sample_data.pth'
+path='./Dataset/Sample_data.pth'
 
 def load_buffer_ftg() -> ReplayBuffer:
     print('Loading Dataset......')
