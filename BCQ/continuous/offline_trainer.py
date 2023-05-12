@@ -10,7 +10,6 @@ class OfflineTrainersave(OfflineTrainer):
         super().__next__()
         if self.save_best_fn:
             self.save_best_fn(self.policy,'epoch'+str(self.epoch))
-
 def offline_trainer(*args, **kwargs) -> Dict[str, Union[float, str]]:  # type: ignore
     """Wrapper for offline_trainer run method.
 

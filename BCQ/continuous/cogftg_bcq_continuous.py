@@ -39,7 +39,7 @@ def get_args():
     parser.add_argument("--actor-lr", type=float, default=3e-4)
     parser.add_argument("--critic-lr", type=float, default=1e-7)
     parser.add_argument("--start-timesteps", type=int, default=10000)
-    parser.add_argument("--epoch", type=int, default=2)
+    parser.add_argument("--epoch", type=int, default=50)
     parser.add_argument("--step-per-epoch", type=int, default=5000)
     parser.add_argument("--n-step", type=int, default=3)
     parser.add_argument("--batch-size", type=int, default=256)
@@ -210,8 +210,8 @@ def test_bcq():
         logger.load(writer)
 
     def save_best_fn(policy,num=0):
-        torch.save(policy, os.path.join(log_path, str(num)+"policy.pth"))
-        torch.save(actor.state_dict(), os.path.join(log_path, "actor.pt")) 
+        torch.save(policy.state_dict(), os.path.join(log_path, str(num)+"policy.pth")) 
+        torch.save(actor.state_dict(), os.path.join(log_path, str(num)+"actor.pt")) 
 
     def watch():
         if args.resume_path is None:
