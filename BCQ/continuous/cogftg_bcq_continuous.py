@@ -9,35 +9,37 @@ import gymnasium as gym
 import numpy as np
 import torch
 from torch.utils.tensorboard import SummaryWriter
-
-from tianshou.data import Collector
-from tianshou.env import SubprocVectorEnv
+from gym import spaces
 from tianshou.policy import BCQPolicy
+from tianshou.data import Collector
 from tianshou.trainer import offline_trainer
+from offline_trainer import offline_trainer
 from tianshou.utils import TensorboardLogger, WandbLogger
 from tianshou.utils.net.common import MLP, Net
-from tianshou.utils.net.continuous import VAE, Critic, Perturbation
 from gym import spaces #add
+
 """
     make sure you have those files in the directory 
 """
-from utils_bcq import load_buffer_ftg #add
-from utils_bcq import save_checkpoint
+from utils_bcq import load_buffer_ftg,normalize_all_obs_in_replay_buffer #add
+from offline_trainer import offline_trainer#from tianshou.trainer import offline_trainer
+from continuous import Critic,VAE, Perturbation
+from fight_agent import get_sound_encoder,STATE_DIM
 
 
 def get_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--task", type=str, default="HalfCheetah-v2")
+    parser.add_argument("--task", type=str, default="BCQ-continuous")
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument(
         "--expert-data-task", type=str, default="halfcheetah-expert-v2"
     )
     parser.add_argument("--buffer-size", type=int, default=1000000)
     parser.add_argument("--hidden-sizes", type=int, nargs="*", default=[256, 256])
-    parser.add_argument("--actor-lr", type=float, default=1e-3)
-    parser.add_argument("--critic-lr", type=float, default=1e-3)
+    parser.add_argument("--actor-lr", type=float, default=3e-4)
+    parser.add_argument("--critic-lr", type=float, default=1e-7)
     parser.add_argument("--start-timesteps", type=int, default=10000)
-    parser.add_argument("--epoch", type=int, default=10)
+    parser.add_argument("--epoch", type=int, default=2)
     parser.add_argument("--step-per-epoch", type=int, default=5000)
     parser.add_argument("--n-step", type=int, default=3)
     parser.add_argument("--batch-size", type=int, default=256)
@@ -57,6 +59,7 @@ def get_args():
     parser.add_argument(
         "--device", type=str, default="cuda" if torch.cuda.is_available() else "cpu"
     )
+    parser.add_argument("--norm-obs", type=int, default=1)
     #TODO: load previous policy
     parser.add_argument("--resume-path", type=str, default=None)
     parser.add_argument("--resume-id", type=str, default=None)
@@ -79,7 +82,8 @@ def get_args():
 def test_bcq():
     args = get_args()
     # env = gym.make(args.task)
-    observation_space=spaces.Box(low=-1.9, high=1.9, shape=(1600,))#add
+    n_frame = 1
+    observation_space=spaces.Box(low=-1.9, high=1.9, shape=(STATE_DIM[n_frame]['mel'],))
     action_space = spaces.Box(low=0, high=1, shape=(40,)) #add
     args.state_shape = observation_space.shape #env.observation_space.shape or env.observation_space.n
     args.action_shape = action_space.shape #env.action_space.shape or env.action_space.n
@@ -93,17 +97,13 @@ def test_bcq():
     args.action_dim = args.action_shape[0]
     print("Max_action", args.max_action)
 
-    # test_envs = gym.make(args.task)
-    # test_envs = SubprocVectorEnv(
-    #     [lambda: gym.make(args.task) for _ in range(args.test_num)]
-    # )
     # seed
     np.random.seed(args.seed)
     torch.manual_seed(args.seed)
-    # test_envs.seed(args.seed)
 
     # model
-    # perturbation network
+    encoder=get_sound_encoder('mel')
+    # perturbation network, add encoder into actor 
     net_a = MLP(
         input_dim=args.state_dim + args.action_dim,
         output_dim=args.action_dim,
@@ -111,7 +111,11 @@ def test_bcq():
         device=args.device,
     )
     actor = Perturbation(
-        net_a, max_action=args.max_action, device=args.device, phi=args.phi
+        net_a, 
+        max_action=args.max_action, 
+        device=args.device, 
+        phi=args.phi,
+        encoder=encoder
     ).to(args.device)
     actor_optim = torch.optim.Adam(actor.parameters(), lr=args.actor_lr)
 
@@ -129,9 +133,9 @@ def test_bcq():
         concat=True,
         device=args.device,
     )
-    critic1 = Critic(net_c1, device=args.device).to(args.device)
+    critic1 = Critic(net_c1, device=args.device,encoder=encoder).to(args.device)
     critic1_optim = torch.optim.Adam(critic1.parameters(), lr=args.critic_lr)
-    critic2 = Critic(net_c2, device=args.device).to(args.device)
+    critic2 = Critic(net_c2, device=args.device,encoder=encoder).to(args.device)
     critic2_optim = torch.optim.Adam(critic2.parameters(), lr=args.critic_lr)
 
     # vae
@@ -156,6 +160,7 @@ def test_bcq():
         latent_dim=args.latent_dim,
         max_action=args.max_action,
         device=args.device,
+        pre_encoder=encoder
     ).to(args.device)
     vae_optim = torch.optim.Adam(vae.parameters())
 
@@ -204,9 +209,9 @@ def test_bcq():
     else:  # wandb
         logger.load(writer)
 
-    def save_best_fn(policy):
-        torch.save(policy.state_dict(), os.path.join(log_path, "policy.pth"))
-        save_checkpoint(actor.state_dict)
+    def save_best_fn(policy,num=0):
+        torch.save(policy, os.path.join(log_path, str(num)+"policy.pth"))
+        torch.save(actor.state_dict(), os.path.join(log_path, "actor.pt")) 
 
     def watch():
         if args.resume_path is None:
@@ -216,11 +221,14 @@ def test_bcq():
             torch.load(args.resume_path, map_location=torch.device("cpu"))
         )
         policy.eval()
-        # collector = Collector(policy, env)
-        # collector.collect(n_episode=1, render=1 / 35)
+        collector = Collector(policy, env)
+        collector.collect(n_episode=1, render=1 / 35)
 
     if not args.watch:
         replay_buffer = load_buffer_ftg(args.expert_data_task)
+        if args.norm_obs:
+            replay_buffer, obs_rms = normalize_all_obs_in_replay_buffer(replay_buffer)
+            #test_envs.set_obs_rms(obs_rms)
         # trainer
         result = offline_trainer(
             policy,
