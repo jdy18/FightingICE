@@ -20,6 +20,13 @@
     - TO RUN:    
 `cd /BCQ/discrete   `   
 `python cogftg_bcq_discrete.py`
+
+## Run TD3+BC
+- prepare
+    - you need to install tianshou package first. https://github.com/thu-ml/tianshou
+    -  `pip install tianshou`
+- run the code
+    - ` python cogftg_td3_bc.py `
  
 ## Useful links
 [audio-only RL model : BlindAI](https://github.com/TeamFightingICE/BlindAI) \
