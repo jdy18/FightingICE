@@ -10,7 +10,7 @@ from tianshou.policy import BasePolicy
 """
 you need to manually add encoder.py from blindAI to this directory /tianshou/policy/imitation
 """
-from tianshou.policy.imitation.encoder import MelSpecEncoder #add
+from encoder import MelSpecEncoder #add
 from continuous import VAE
 
 
