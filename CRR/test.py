@@ -16,8 +16,11 @@ from testagent import TestAgent
 from model import RecurrentActor
 from pyftg.gateway import Gateway
 import logging
-from encoder import SampleEncoder, RawEncoder, FFTEncoder, MelSpecEncoder
-
+from encoder import SampleEncoder, RawEncoder, FFTEncoder, MelSpecEncoder,get_sound_encoder
+from  discrete import  Actor
+from tianshou.policy import DiscreteCRRPolicy
+from tianshou.utils.net.common import Net
+from tqdm import tqdm
 STATE_DIM = {
     1: {
         'conv1d': 160,
@@ -46,9 +49,43 @@ def load_actor_model(encoder_name, actor_path, device, actor_name = 'RecurrentAc
         actor_model.load_state_dict(actor_state_dict)
         actor_model.to(device)
         actor_model.get_init_state(device)  # rnn模型需要初始化状态
+
+    if actor_name == 'CRR':
+        feature_net = Net(
+            STATE_DIM[n_frame][encoder_name],
+            hidden_sizes=[512],
+            device=device,
+        )
+        encoder = get_sound_encoder('mel', n_frame=n_frame)
+        actor = Actor(
+            feature_net,
+            ACTION_NUM,
+            hidden_sizes=[512],
+            device=device,
+            softmax_output=False,
+            encoder=encoder
+        ).to(args.device)
+        critic = None
+        optim = None
+
+        # define policy
+        policy = DiscreteCRRPolicy(
+            actor,
+            critic,
+            optim,
+        ).to(args.device)
+
+        policy_dict = torch.load(actor_path)
+        for key,_ in list(policy_dict.items()):
+            if not key.startswith("actor"):
+                del policy_dict[key]
+        policy.load_state_dict(policy_dict, strict=False)
+
+
+        policy.to(device)
+        actor_model = policy.actor
+
     return actor_model
-
-
 
 
 
@@ -77,15 +114,15 @@ def get_score(self_HP: list, opp_HP: list):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--encoder', type=str, choices=['conv1d', 'fft', 'mel'], default='fft',
+    parser.add_argument('--encoder', type=str, choices=['conv1d', 'fft', 'mel'], default='mel',
                         help='Choose an encoder for the Blind AI')
     parser.add_argument('--port', type=int, default=50051, help='Port used by DareFightingICE')
     parser.add_argument('--p2', choices=['Sandbox', 'MctsAi23i'], type=str, default='MctsAi23i', help='The opponent AI')
     parser.add_argument('--game_num', type=int, default=50, help='Number of games to play')
     parser.add_argument('--device', type=str, default='cpu', help='device for test')
-    parser.add_argument('--actor_path', type=str, default='./model/actor.pt', help='actor path')  # actor网络路径
-    parser.add_argument('--actor_name', type=str, default='RecurrentActor', help='actor name')  # actor网络名字
-    parser.add_argument('--save_path', type=str, default='./results/ppopretrain_vs_MctsAi23i.txt', help='save path')  # 结果保存路径
+    parser.add_argument('--actor_path', type=str, default='log/crr_pretraindata/crr/1626/230514-132821/policy.pth', help='actor path')  # actor网络路径
+    parser.add_argument('--actor_name', type=str, default='CRR', help='actor name')  # actor网络名字
+    parser.add_argument('--save_path', type=str, default='./results/crrrandomvs_MctsAi23i.txt', help='save path')  # 结果保存路径
 
     args = parser.parse_args()
     characters = ['ZEN']
@@ -122,7 +159,7 @@ if __name__ == '__main__':
 
     for character in characters:
         # FFT GRU
-        for _ in range(game_num):
+        for _ in tqdm(range(game_num)):
             # actor模型加载，以blindAI的RNN为例
             actor_model = load_actor_model(encoder_name=encoder_name, actor_path=actor_path, device=device, actor_name=actor_name)
             agent = TestAgent(n_frame=n_frame, logger=logger, actor=actor_model, device=device)
@@ -141,4 +178,4 @@ if __name__ == '__main__':
                 opp_HP.append(round_result.remaining_hps[1])
 
     win_ratio, hp_diff_avg = get_score(self_HP, opp_HP)
-    logger.info("\n win_ratio: %.3f, \n hp_diff_avg %.3f" %(hp_diff_avg, win_ratio))
+    logger.info("\n win_ratio: %.3f, \n hp_diff_avg %.3f" %(win_ratio, hp_diff_avg))
