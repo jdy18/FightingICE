@@ -7,7 +7,7 @@ from pyftg.gateway import Gateway
 import logging
 from encoder import SampleEncoder, RawEncoder, FFTEncoder, MelSpecEncoder
 from tianshou.utils.net.common import MLP, Net
-from tianshou.policy import BCQPolicy
+from bcq import BCQPolicy
 from continuous import Critic,VAE, Perturbation
 from gym import spaces #add
 
