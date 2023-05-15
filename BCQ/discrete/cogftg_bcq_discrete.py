@@ -37,7 +37,7 @@ def get_args():
     parser.add_argument("--unlikely-action-threshold", type=float, default=0.3)
     #TODO: how imitation-logits-penalty works
     parser.add_argument("--imitation-logits-penalty", type=float, default=0.01)
-    parser.add_argument("--epoch", type=int, default=5)
+    parser.add_argument("--epoch", type=int, default=200)
     parser.add_argument("--update-per-epoch", type=int, default=10000)
     parser.add_argument("--batch-size", type=int, default=32)
     parser.add_argument("--hidden-sizes", type=int, nargs="*", default=[512])
@@ -155,8 +155,9 @@ def test_discrete_bcq(args=get_args()):
     else:  # wandb
         logger.load(writer)
 
-    def save_best_fn(policy):
-        torch.save(policy.state_dict(), os.path.join(log_path, "policy.pth"))
+    def save_best_fn(policy,num=0):
+        torch.save(policy.state_dict(), os.path.join(log_path, str(num)+"policy.pth")) 
+        torch.save(policy_net, os.path.join(log_path, str(num)+"actor.pth")) 
 
     def stop_fn(mean_rewards):
         return False
