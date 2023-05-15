@@ -93,9 +93,9 @@ if __name__ == '__main__':
     parser.add_argument('--p2', choices=['Sandbox', 'MctsAi23i'], type=str, default='MctsAi23i', help='The opponent AI')
     parser.add_argument('--game_num', type=int, default=30, help='Number of games to play')
     parser.add_argument('--device', type=str, default='cpu', help='device for test')
-    parser.add_argument('--actor_path', type=str, default='./model/actor.pt', help='actor path')  # actor网络路径
+    parser.add_argument('--actor_path', type=str, default='./model/CQL.pth', help='actor path')  # actor网络路径
     parser.add_argument('--actor_name', type=str, default='RecurrentActor', help='actor name')  # actor网络名字
-    parser.add_argument('--save_path', type=str, default='./results/random_vs_MctsAi23i.txt', help='save path')  # 结果保存路径
+    parser.add_argument('--save_path', type=str, default='./results/CQL_vs_MctsAi23i.txt', help='save path')  # 结果保存路径
 
     args = parser.parse_args()
     characters = ['ZEN']
