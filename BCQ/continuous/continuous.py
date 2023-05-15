@@ -116,7 +116,7 @@ class Critic(nn.Module):
         preprocess_net_output_dim: Optional[int] = None,
         linear_layer: Type[nn.Linear] = nn.Linear,
         flatten_input: bool = True,
-            encoder=None
+        encoder=None
     ) -> None:
         super().__init__()
         self.device = device
@@ -442,9 +442,9 @@ class Perturbation(nn.Module):
         left=obs[:,:800]
         right=obs[:,800:]
         obs=torch.stack([left,right],dim=2)
-
         if self.encoder is not None:
             state = self.relu(self.flatten(self.encoder(obs)))
+
         # preprocess_net
         logits = self.preprocess_net(torch.cat([state, action], -1))[0]
         noise = self.phi * self.max_action * torch.tanh(logits)
@@ -452,82 +452,6 @@ class Perturbation(nn.Module):
         return (noise + action).clamp(-self.max_action, self.max_action)
 
 
-class VAE(nn.Module):
-    """Implementation of VAE. It models the distribution of action. Given a \
-    state, it can generate actions similar to those in batch. It is used \
-    in BCQ algorithm.
-
-    :param torch.nn.Module encoder: the encoder in VAE. Its input_dim must be
-        state_dim + action_dim, and output_dim must be hidden_dim.
-    :param torch.nn.Module decoder: the decoder in VAE. Its input_dim must be
-        state_dim + latent_dim, and output_dim must be action_dim.
-    :param int hidden_dim: the size of the last linear-layer in encoder.
-    :param int latent_dim: the size of latent layer.
-    :param float max_action: the maximum value of each dimension of action.
-    :param Union[str, torch.device] device: which device to create this model on.
-        Default to "cpu".
-
-    For advanced usage (how to customize the network), please refer to
-    :ref:`build_the_network`.
-
-    .. seealso::
-
-        You can refer to `examples/offline/offline_bcq.py` to see how to use it.
-    """
-
-    def __init__(
-        self,
-        encoder: nn.Module,
-        decoder: nn.Module,
-        hidden_dim: int,
-        latent_dim: int,
-        max_action: float,
-        device: Union[str, torch.device] = "cpu",
-    ):
-        super(VAE, self).__init__()
-        self.encoder = encoder
-        self.flatten = nn.Flatten()
-        self.relu = nn.ReLU()
-        self.mean = nn.Linear(hidden_dim, latent_dim)
-        self.log_std = nn.Linear(hidden_dim, latent_dim)
-        self.decoder = decoder
-        self.max_action = max_action
-        self.latent_dim = latent_dim
-        self.device = device
-
-    def forward(
-        self, state: torch.Tensor, action: torch.Tensor
-    ) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
-        # [state, action] -> z , [state, z] -> action
-        latent_z = self.encoder(torch.cat([state, action], -1))
-        # shape of z: (state.shape[:-1], hidden_dim)
-
-        mean = self.mean(latent_z)
-        # Clamped for numerical stability
-        log_std = self.log_std(latent_z).clamp(-4, 15)
-        std = torch.exp(log_std)
-        # shape of mean, std: (state.shape[:-1], latent_dim)
-
-        latent_z = mean + std * torch.randn_like(std)  # (state.shape[:-1], latent_dim)
-
-        reconstruction = self.decode(state, latent_z)  # (state.shape[:-1], action_dim)
-        return reconstruction, mean, std
-
-    def decode(
-        self,
-        state: torch.Tensor,
-        latent_z: Union[torch.Tensor, None] = None
-    ) -> torch.Tensor:
-        # decode(state) -> action
-        if latent_z is None:
-            # state.shape[0] may be batch_size
-            # latent vector clipped to [-0.5, 0.5]
-            latent_z = torch.randn(state.shape[:-1] + (self.latent_dim, )) \
-                .to(self.device).clamp(-0.5, 0.5)
-
-        # decode z with state!
-        return self.max_action * \
-            torch.tanh(self.decoder(torch.cat([state, latent_z], -1)))
 
 class VAE(nn.Module):
     """Implementation of VAE. It models the distribution of action. Given a \
@@ -585,7 +509,7 @@ class VAE(nn.Module):
         ).flatten(1)
         left = obs[:, :800]
         right = obs[:, 800:]
-        obs = torch.stack([left, right], dim=2)
+        obs= torch.stack([left, right], dim=2)
         if self.pre_encoder is not None:
             state=self.relu(self.flatten(self.pre_encoder(obs)))
 

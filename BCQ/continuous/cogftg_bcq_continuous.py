@@ -10,7 +10,6 @@ import numpy as np
 import torch
 from torch.utils.tensorboard import SummaryWriter
 from gym import spaces
-from tianshou.policy import BCQPolicy
 from tianshou.data import Collector
 from tianshou.trainer import offline_trainer
 from offline_trainer import offline_trainer
@@ -25,6 +24,7 @@ from utils_bcq import load_buffer_ftg,normalize_all_obs_in_replay_buffer #add
 from offline_trainer import offline_trainer#from tianshou.trainer import offline_trainer
 from continuous import Critic,VAE, Perturbation
 from fight_agent import get_sound_encoder,STATE_DIM
+from bcq import BCQPolicy
 
 
 def get_args():
@@ -39,7 +39,7 @@ def get_args():
     parser.add_argument("--actor-lr", type=float, default=3e-4)
     parser.add_argument("--critic-lr", type=float, default=1e-7)
     parser.add_argument("--start-timesteps", type=int, default=10000)
-    parser.add_argument("--epoch", type=int, default=50)
+    parser.add_argument("--epoch", type=int, default=200)
     parser.add_argument("--step-per-epoch", type=int, default=5000)
     parser.add_argument("--n-step", type=int, default=3)
     parser.add_argument("--batch-size", type=int, default=256)
@@ -61,7 +61,7 @@ def get_args():
     )
     parser.add_argument("--norm-obs", type=int, default=1)
     #TODO: load previous policy
-    parser.add_argument("--resume-path", type=str, default=None)
+    parser.add_argument("--resume-path", type=str)
     parser.add_argument("--resume-id", type=str, default=None)
     parser.add_argument(
         "--logger",
@@ -181,8 +181,10 @@ def test_bcq():
 
     # load a previous policy
     if args.resume_path:
-        policy.load_state_dict(torch.load(args.resume_path, map_location=args.device))
+        model_state_dict = torch.load(args.resume_path, map_location=args.device)
+        policy.load_state_dict(model_state_dict)
         print("Loaded agent from: ", args.resume_path)
+        torch.save(actor, "actor.pth")
 
     # collector
     test_collector = None# test_collector = Collector(policy, test_envs)
@@ -211,7 +213,7 @@ def test_bcq():
 
     def save_best_fn(policy,num=0):
         torch.save(policy.state_dict(), os.path.join(log_path, str(num)+"policy.pth")) 
-        torch.save(actor.state_dict(), os.path.join(log_path, str(num)+"actor.pt")) 
+        torch.save(actor, os.path.join(log_path, str(num)+"actor.pth")) 
 
     def watch():
         if args.resume_path is None:
