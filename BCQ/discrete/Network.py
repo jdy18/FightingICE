@@ -74,10 +74,10 @@ class DQN(nn.Module):
         self.flatten = nn.Flatten()
         self.relu = nn.ReLU()
         self.batch_size = batch_size
-        self.first_dim = first_dim
+        self.first_dim = 40
 
         # with torch.no_grad():
-        self.output_dim =  np.prod(self.net(torch.zeros(batch_size,c,first_dim,64)).shape[1:]) #same Mel op
+        self.output_dim =  np.prod(self.net(torch.zeros(batch_size,c,40,64)).shape[1:]) #same Mel op
         if not features_only:
             self.net = nn.Sequential(
                 self.net, layer_init(nn.Linear(self.output_dim, 512)),

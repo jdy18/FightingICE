@@ -161,23 +161,6 @@ def test_discrete_bcq(args=get_args()):
     def stop_fn(mean_rewards):
         return False
 
-    # watch agent's performance
-    # def watch():
-    #     print("Setup test envs ...")
-    #     policy.eval()
-    #     policy.set_eps(args.eps_test)
-    #     test_envs.seed(args.seed)
-    #     print("Testing agent ...")
-    #     test_collector.reset()
-    #     result = test_collector.collect(n_episode=args.test_num, render=args.render)
-    #     pprint.pprint(result)
-    #     rew = result["rews"].mean()
-    #     print(f'Mean reward (over {result["n/ep"]} episodes): {rew}')
-
-    # if args.watch:
-    #     watch()
-    #     exit(0)
-
     result = offline_trainer(
         policy,
         buffer,
