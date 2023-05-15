@@ -27,6 +27,13 @@
     -  `pip install tianshou`
 - run the code
     - ` python cogftg_td3_bc.py `
+
+## Run CQL
+- train model
+  - ` python cogftg_cql.py
+- test model
+  - save the parameter in /tianshou_cql/test/model
+  - ` python test.py
  
 ## Useful links
 [audio-only RL model : BlindAI](https://github.com/TeamFightingICE/BlindAI) \
