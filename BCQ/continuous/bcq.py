@@ -1,7 +1,6 @@
 import copy
 from typing import Any, Dict, Optional, Union
 
-
 import numpy as np
 import torch
 import torch.nn.functional as F
@@ -14,7 +13,7 @@ you need to manually add encoder.py from blindAI to this directory /tianshou/pol
 from encoder import MelSpecEncoder #add
 from continuous import VAE
 
-
+import torch.nn as nn
 
 class BCQPolicy(BasePolicy):
     """Implementation of BCQ algorithm. arXiv:1812.02900.
@@ -93,6 +92,8 @@ class BCQPolicy(BasePolicy):
         self.forward_sampled_times = forward_sampled_times
         self.num_sampled_action = num_sampled_action
         self.encoder = MelSpecEncoder(frame_skip=1)
+        self.flatten = nn.Flatten()
+        self.relu = nn.ReLU()
 
     def train(self, mode: bool = True) -> "BCQPolicy":
         """Set the module in training mode, except for the target network."""
@@ -220,12 +221,12 @@ class BCQPolicy(BasePolicy):
     ):
         """Compute action over the given batch data."""
         obs = state
-        obs = (obs.reshape(1, -1))
-        obs = self.relu(self.flatten(self.encoder(obs)))#add
+        encode_obs = self.relu(self.flatten(self.encoder(obs.unsqueeze(0))))#add
         # now obs is (forward_sampled_times, state_dim)
-
+        obs = (obs.reshape(1, -1))
         # decode(obs) generates action and actor perturbs it
-        act = self.actor(obs, self.vae.decode(obs))
+
+        act = self.actor(obs, self.vae.decode(encode_obs))
         # now action is (forward_sampled_times, action_dim)
         # q1 = self.critic1(obs, act)
         # q1 is (forward_sampled_times, 1)
