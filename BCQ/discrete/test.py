@@ -10,7 +10,7 @@ from tianshou.utils.net.common import MLP, Net
 # from continuous import Critic,VAE, Perturbation
 from gym import spaces #add
 from discrete import Actor
-from Network import DQN
+from Network_test import DQN
 
 STATE_DIM = {
     1: {
@@ -38,7 +38,7 @@ def load_actor_model(encoder_name, actor_path, device, actor_name = 'RecurrentAc
                                      action_num=ACTION_NUM)
         
     else:
-        if actor_name == 'continuous_bcq':
+        if actor_name == 'discrete_bcq':
             n_frame = 1
             observation_space = spaces.Box(low=-1.9, high=1.9, shape=(800, 2))# args.state_shape = env.observation_space.shape or env.observation_space.n
             action_space = spaces.Box(low=0, high=1, shape=(40,))# args.action_shape = env.action_space.shape or env.action_space.n
@@ -66,15 +66,15 @@ def load_actor_model(encoder_name, actor_path, device, actor_name = 'RecurrentAc
 
             
     # state_dict =actor_model.state_dict()
-    # model_state_dict = torch.load('/Users/jin/Downloads/FightingICE/log/BCQ-continuous-200epoch/epoch200policy.pth',map_location=torch.device('cpu'))
-    # actor_model.load_state_dict(model_state_dict,strict=False)
+    model_state_dict = torch.load(actor_path,map_location=torch.device('cpu'))
+    actor_model.load_state_dict(model_state_dict,strict=False)
     # actor_model.load_state_dict(actor_state_dict)
     # sd  = actor_model.state_dict()
     # vae_dict = vae.state_dict()
     # actor_model.preprocess_net.load_state_dict
 
-    # actor_model.eval()
-    # actor_model.to(device)
+    actor_model.eval()
+    actor_model.to(device)
     # actor_model.get_init_state(device)  # rnn模型需要初始化状态
 
     return actor_model
@@ -104,16 +104,16 @@ def get_score(self_HP: list, opp_HP: list):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--encoder', type=str, choices=['conv1d', 'fft', 'mel'], default='fft',
+    parser.add_argument('--encoder', type=str, choices=['conv1d', 'fft', 'mel'], default='mel',
                         help='Choose an encoder for the Blind AI')
     parser.add_argument('--port', type=int, default=50051, help='Port used by DareFightingICE')
     parser.add_argument('--p2', choices=['Sandbox', 'MctsAi23i'], type=str, default='MctsAi23i', help='The opponent AI')
-    parser.add_argument('--game_num', type=int, default=50, help='Number of games to play')
+    parser.add_argument('--game_num', type=int, default=30, help='Number of games to play')
     parser.add_argument('--device', type=str, default='cpu', help='device for test')
-    parser.add_argument('--actor_path', type=str, default='/Users/jin/Downloads/FightingICE/log/BCQ-continuous-200epoch/epoch200actor.pt', help='actor path')  # actor网络路径
-    parser.add_argument('--actor_name', type=str, default='continuous_bcq', help='actor name')  # actor网络名字
-    parser.add_argument('--save_path', type=str, default='/Users/jin/Downloads/FightingICE/BCQ/continuous/results/bcq_vs_MctsAi23i.txt', help='save path')  # 结果保存路径
-    parser.add_argument("--hidden-sizes", type=int, nargs="*", default=[256, 256])
+    parser.add_argument('--actor_path', type=str, default='/Users/jin/Downloads/FightingICE-jin/BCQ/discrete/results/epoch80actor.pth', help='actor path')  # actor网络路径
+    parser.add_argument('--actor_name', type=str, default='discrete_bcq', help='actor name')  # actor网络名字
+    parser.add_argument('--save_path', type=str, default='/Users/jin/Downloads/FightingICE-jin/BCQ/discrete/results/bcq_discrete_vs_MctsAi23i.txt', help='save path')  # 结果保存路径
+    parser.add_argument("--hidden-sizes", type=int, nargs="*", default=[512])
     parser.add_argument("--phi", default=0.05)
     parser.add_argument("--actor-lr", type=float, default=3e-4)
     parser.add_argument("--critic-lr", type=float, default=1e-7)
@@ -124,7 +124,7 @@ if __name__ == '__main__':
     parser.add_argument("--tau", default=0.005)
     # Weighting for Clipped Double Q-learning in BCQ
     parser.add_argument("--lmbda", default=0.75)
-    parser.add_argument("--batch-size", type=int, default=1)
+    parser.add_argument("--batch-size", type=int, default=32)
     args = parser.parse_args()
     characters = ['ZEN']
 
