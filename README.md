@@ -17,7 +17,7 @@
   链接：https://pan.baidu.com/s/1YiNqLo25tvATJRBOWKZT-Q?pwd=396u 
   提取码：396u 
 
-## prepare
+## Prepare
 
 you need to install tianshou package first. https://github.com/thu-ml/tianshou
 
