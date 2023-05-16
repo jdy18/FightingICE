@@ -30,10 +30,10 @@ you need to install tianshou package first. https://github.com/thu-ml/tianshou
 
 ## Run CQL
 - train model
-  - ` python cogftg_cql.py
+  - ` python cogftg_cql.py `
 - test model
-  - save the parameter in /tianshou_cql/test/model
-  - ` python test.py
+  - save the model in /tianshou_cql/test/model
+  - ` python test.py `
  ## Run BCQ
 
 ### there are 2 versions of BCQ. 
