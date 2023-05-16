@@ -1,14 +1,3 @@
-'''
-test.py
-测试开始前，需要根据自己的actor网络修改load_actor_model（）函数来加载相应的模型
-需要输入的参数：
-actor_path: actor网络的保存位置，建议放在/model文件夹下
-save_path:测试结果保存的位置，建议放在/results文件夹下
-actor_name：atcor网络的名字，决定了如何加载模型
-参考命令：
-python test.py --actor_path ./model/actor.pt --actor_name RecurrentActor --save_path ./results/ppopretrain_vs_MctsAi23i.txt
-'''
-
 import sys
 import argparse
 import torch
@@ -17,9 +6,11 @@ from model import RecurrentActor
 from pyftg.gateway import Gateway
 import logging
 from encoder import SampleEncoder, RawEncoder, FFTEncoder, MelSpecEncoder
-from tianshou_cql.Network import QRDQN
-from collections import OrderedDict
-from tianshou.policy import DiscreteCQLPolicy
+from tianshou.utils.net.common import MLP, Net
+# from continuous import Critic,VAE, Perturbation
+from gym import spaces #add
+from discrete import Actor
+from Network_test import DQN
 
 STATE_DIM = {
     1: {
@@ -45,21 +36,47 @@ def load_actor_model(encoder_name, actor_path, device, actor_name = 'RecurrentAc
         actor_model = RecurrentActor(STATE_DIM[n_frame][encoder_name], HIDDEN_SIZE, RECURRENT_LAYERS,
                                      get_sound_encoder(encoder_name, n_frame),
                                      action_num=ACTION_NUM)
-        actor_state_dict = torch.load(actor_path)
-        actor_model.load_state_dict(actor_state_dict)
-        actor_model.to(device)
-        actor_model.get_init_state(device)  # rnn模型需要初始化状态
-    if actor_name == 'CQL':
-        print('Loading data from '+actor_path)
-        actor_model = QRDQN(hidden_sizes=[512, 512], num_quantiles=50, device=device)
-        # optim = torch.optim.Adam(net.parameters(), lr=0.00001)
-        # actor_model = DiscreteCQLPolicy(model=net, optim=optim, discount_factor=0.99, num_quantiles=50, estimation_step=1, target_update_freq=500, min_q_weight=50)
-        actor_state_dict = torch.load(actor_path)
-        new_state_dict = OrderedDict()
-        for k, v in actor_state_dict.items():
-            if 'model.' in k:
-                new_state_dict[k[6:]] = v
-        actor_model.load_state_dict(new_state_dict, strict=False)
+        
+    else:
+        if actor_name == 'discrete_bcq':
+            n_frame = 1
+            observation_space = spaces.Box(low=-1.9, high=1.9, shape=(800, 2))# args.state_shape = env.observation_space.shape or env.observation_space.n
+            action_space = spaces.Box(low=0, high=1, shape=(40,))# args.action_shape = env.action_space.shape or env.action_space.n
+            args.state_shape = observation_space.shape #env.observation_space.shape or env.observation_space.n
+            args.action_shape = action_space.shape #env.action_space.shape or env.action_space.n
+            args.state_dim = args.state_shape[0]
+            args.action_dim = args.action_shape[0]
+            args.max_action = action_space.high[0] #env.action_space.high[0]  # float
+            # model
+            encoder=get_sound_encoder('mel',n_frame)
+            # perturbation network, add encoder into actor 
+            feature_net = DQN(
+            #TODO: change one to parameter 'channel'
+            1, *args.state_shape, args.action_shape, device=args.device, features_only=True,batch_size=args.batch_size
+            ).to(args.device)
+            actor_model = Actor(
+                preprocess_net = feature_net,
+                action_shape = args.action_shape,
+                device=args.device,
+                hidden_sizes=args.hidden_sizes,
+                softmax_output=False,
+                encoder = encoder
+            ).to(args.device)
+            
+
+            
+    # state_dict =actor_model.state_dict()
+    model_state_dict = torch.load(actor_path,map_location=torch.device('cpu'))
+    actor_model.load_state_dict(model_state_dict,strict=False)
+    # actor_model.load_state_dict(actor_state_dict)
+    # sd  = actor_model.state_dict()
+    # vae_dict = vae.state_dict()
+    # actor_model.preprocess_net.load_state_dict
+
+    actor_model.eval()
+    actor_model.to(device)
+    # actor_model.get_init_state(device)  # rnn模型需要初始化状态
+
     return actor_model
 
 
@@ -93,10 +110,21 @@ if __name__ == '__main__':
     parser.add_argument('--p2', choices=['Sandbox', 'MctsAi23i'], type=str, default='MctsAi23i', help='The opponent AI')
     parser.add_argument('--game_num', type=int, default=30, help='Number of games to play')
     parser.add_argument('--device', type=str, default='cpu', help='device for test')
-    parser.add_argument('--actor_path', type=str, default='./model/50-10000.pth, help='actor path')  # actor网络路径
-    parser.add_argument('--actor_name', type=str, default='RecurrentActor', help='actor name')  # actor网络名字
-    parser.add_argument('--save_path', type=str, default='./results/CQL_vs_MctsAi23i.txt', help='save path')  # 结果保存路径
-
+    parser.add_argument('--actor_path', type=str, default='/Users/jin/Downloads/FightingICE-jin/BCQ/discrete/results/epoch80actor.pth', help='actor path')  # actor网络路径
+    parser.add_argument('--actor_name', type=str, default='discrete_bcq', help='actor name')  # actor网络名字
+    parser.add_argument('--save_path', type=str, default='/Users/jin/Downloads/FightingICE-jin/BCQ/discrete/results/bcq_discrete_vs_MctsAi23i.txt', help='save path')  # 结果保存路径
+    parser.add_argument("--hidden-sizes", type=int, nargs="*", default=[512])
+    parser.add_argument("--phi", default=0.05)
+    parser.add_argument("--actor-lr", type=float, default=3e-4)
+    parser.add_argument("--critic-lr", type=float, default=1e-7)
+    parser.add_argument("--vae-hidden-sizes", type=int, nargs="*", default=[512, 512])
+    # default to 2 * action_dim
+    parser.add_argument("--latent-dim", type=int)
+    parser.add_argument("--gamma", default=0.99)
+    parser.add_argument("--tau", default=0.005)
+    # Weighting for Clipped Double Q-learning in BCQ
+    parser.add_argument("--lmbda", default=0.75)
+    parser.add_argument("--batch-size", type=int, default=32)
     args = parser.parse_args()
     characters = ['ZEN']
 
@@ -119,7 +147,7 @@ if __name__ == '__main__':
     logger.addHandler(ch)
 
     #file_log 将log输出到文件
-    file_handler = logging.FileHandler(filename=save_path, mode='w')
+    file_handler = logging.FileHandler(filename=save_path, mode='a')
     file_handler.setLevel(level=logging.INFO)
     file_handler.setFormatter(formatter)
     logger.addHandler(file_handler)
@@ -137,7 +165,7 @@ if __name__ == '__main__':
             actor_model = load_actor_model(encoder_name=encoder_name, actor_path=actor_path, device=device, actor_name=actor_name)
             agent = TestAgent(n_frame=n_frame, logger=logger, actor=actor_model, device=device)
             gateway = Gateway(port=50051)
-            ai_name = 'MelCQL'
+            ai_name = 'FFTGRU'
             gateway.register_ai(ai_name, agent)
             print("Start game")
             gateway.run_game([character, character], [ai_name, p2], 1)

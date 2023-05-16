@@ -100,7 +100,7 @@ class DQN(nn.Module):
     ) -> Tuple[torch.Tensor, Any]:
         r"""Mapping: s -> Q(s, \*)."""
         obs = torch.as_tensor(obs, device=self.device, dtype=torch.float32)
-        obs = obs.view(self.batch_size,self.c,self.first_dim,-1)
+        obs = obs.view(1,self.c,self.first_dim,-1)
         return self.net(obs), state
 
 

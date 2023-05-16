@@ -129,14 +129,13 @@ class TestAgent(AIInterface):
         # action_idx = self.action_idx
     
         if hasattr(self.actor, 'act'):  # 有act函数用act，否则用forward(原soundagent中的forward函数生成的是分布)
-            self.action_idx = self.actor.act(state.to(self.device))
+            action_idx = self.actor.act(state.unsqueeze(0).to(self.device)).float()
         else:
-            self.action_idx = self.actor(state.reshape(-1).unsqueeze(0).to(self.device))
-        self.action_idx[0][1] = 0
-        self.action_idx[0][24] = 0
+            action_idx,_ = self.actor(state.unsqueeze(0).to(self.device))
+            self.action_idx = action_idx.float()
         action_idx = torch.argmax(self.action_idx) 
         self.cc.command_call(self.actions[action_idx])
-        # print(self.actions[action_idx])
+        print(self.actions[action_idx])
         self.inputKey = self.cc.get_skill_key()
 
 

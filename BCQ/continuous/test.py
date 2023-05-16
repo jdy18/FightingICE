@@ -126,7 +126,7 @@ def load_actor_model(encoder_name, actor_path, device, actor_name = 'RecurrentAc
 
             
     state_dict =actor_model.state_dict()
-    model_state_dict = torch.load('/Users/jin/Downloads/FightingICE/log/BCQ-continuous-200epoch/epoch200policy.pth',map_location=torch.device('cpu'))
+    model_state_dict = torch.load(actor_path,map_location=torch.device('cpu'))
     actor_model.load_state_dict(model_state_dict,strict=False)
     # actor_model.load_state_dict(actor_state_dict)
     # sd  = actor_model.state_dict()
@@ -168,11 +168,11 @@ if __name__ == '__main__':
                         help='Choose an encoder for the Blind AI')
     parser.add_argument('--port', type=int, default=50051, help='Port used by DareFightingICE')
     parser.add_argument('--p2', choices=['Sandbox', 'MctsAi23i'], type=str, default='MctsAi23i', help='The opponent AI')
-    parser.add_argument('--game_num', type=int, default=50, help='Number of games to play')
+    parser.add_argument('--game_num', type=int, default=30, help='Number of games to play')
     parser.add_argument('--device', type=str, default='cpu', help='device for test')
-    parser.add_argument('--actor_path', type=str, default='/Users/jin/Downloads/FightingICE/log/BCQ-continuous-200epoch/epoch200actor.pt', help='actor path')  # actor网络路径
+    parser.add_argument('--actor_path', type=str, default='/Users/jin/Downloads/FightingICE-jin/BCQ/continuous/epoch100policy.pth', help='actor path')  # actor网络路径
     parser.add_argument('--actor_name', type=str, default='continuous_bcq', help='actor name')  # actor网络名字
-    parser.add_argument('--save_path', type=str, default='/Users/jin/Downloads/FightingICE/BCQ/continuous/results/bcq_vs_MctsAi23i.txt', help='save path')  # 结果保存路径
+    parser.add_argument('--save_path', type=str, default='/Users/jin/Downloads/FightingICE-jin/BCQ/continuous/results/bcq_vs_MctsAi23i.txt', help='save path')  # 结果保存路径
     parser.add_argument("--hidden-sizes", type=int, nargs="*", default=[256, 256])
     parser.add_argument("--phi", default=0.05)
     parser.add_argument("--actor-lr", type=float, default=3e-4)
