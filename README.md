@@ -4,7 +4,16 @@
 
 ` wget https://huggingface.co/datasets/iamjinchen/FightingICE/resolve/main/Sample_data.pth.zip  `             
 ` unzip Sample_data.pth.zip `               
-`mv Sample_data.pth /Dataset`             
+`mv Sample_data.pth /Dataset`        
+
+## Download full dataset
+
+- 6G data collected by pretrained policy: 
+  链接：https://pan.baidu.com/s/1GOLz2K8D-cHGnt0Os7fdlg?pwd=ufa8 
+  提取码：ufa8 
+- 6G data collected by random policy:
+  链接：https://pan.baidu.com/s/1YiNqLo25tvATJRBOWKZT-Q?pwd=396u 
+  提取码：396u 
 
 ## Run BCQ
 
