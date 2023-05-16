@@ -49,7 +49,7 @@ you need to install tianshou package first. https://github.com/thu-ml/tianshou
         `cd /BCQ/continuous`      \
         `python cogftg_bcq_continuous.py`
        - the log, weights will be output under `log` directory.
-  
+    
     - To Test
        - change directory parameters in `test.py` to your `policy.pth` file.\
        i have pretrained weight files in `/results`, to which you can refer
@@ -58,7 +58,7 @@ you need to install tianshou package first. https://github.com/thu-ml/tianshou
 
 - discrete version
     - which should work. 
-   
+     
     - TO RUN:    
        - change directory in `utils_discrete.py` to your buffer file.
        - change epoch, step_nums in `cogftg_bcq_discrete.py`\
@@ -69,6 +69,43 @@ you need to install tianshou package first. https://github.com/thu-ml/tianshou
        - change directory parameters in `test.py` to your `policy.pth` file.\
        i have pretrained weight files in `/results`, to which you can refer
        - the results is set to output in `/results/bcq_discrete_vs_MctsAi23i.txt`
+       
+       
+
+ ## Run CRR
+
+-  prepare:
+  -  install tianshou package as mentioned above
+  - `cd CRR`
+
+- To train:  
+
+  - change `path` in `utils.py` to path of your dataset.
+  - change epoch, step_nums in `cogftg_crr.py`
+  - run `python cogftg_crr.py`
+  - the log, weights will be output under `log` directory.
+
+- To Test
+
+  - get the pretrained actor model
+
+  - set the `actor_path,save_path,actor_name` in `'test.py'`. 
+
+  - For example : `python test.py --actor_path ./model/actor.pt --actor_name CRR --save_path  ./results/ppopretrain_vs_MctsAi23i.txt`
+
+  - path` in `utils.py` to path of your dataset.
+
+    
+
+    
+
+    the log, weights will be output under `log` directory.
+
+    
+
+
+
+
 
 
 ## Useful links
