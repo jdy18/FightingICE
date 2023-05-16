@@ -10,7 +10,7 @@ import torch
 from torch.utils.tensorboard import SummaryWriter
 from tianshou.data import Collector, VectorReplayBuffer
 from tianshou.policy import DiscreteBCQPolicy
-from  import offline_trainer
+from tianshou.trainer import offline_trainer
 from tianshou.utils import TensorboardLogger, WandbLogger
 from tianshou.utils.net.common import ActorCritic
 from gymnasium import spaces #add
@@ -46,7 +46,7 @@ def get_args():
     parser.add_argument("--scale-obs", type=int, default=0)
     parser.add_argument("--logdir", type=str, default="log")
     parser.add_argument("--render", type=float, default=0.)
-    parser.add_argument("--resume-path", type=str, default=None)
+    parser.add_argument("--resume-path", type=str, default='/Users/jin/Downloads/FightingICE-jin/jin-log/log/discrete-bcq-200epoch-0516/0policy.pth')
     parser.add_argument("--resume-id", type=str, default=None)
     parser.add_argument(
         "--logger",
@@ -124,8 +124,12 @@ def test_discrete_bcq(args=get_args()):
     )
     # load a previous policy
     if args.resume_path:
-        policy.load_state_dict(torch.load(args.resume_path, map_location=args.device))
+        state_dict = torch.load(args.resume_path, map_location=args.device) 
+        policy.load_state_dict(state_dict)
         print("Loaded agent from: ", args.resume_path)
+        policy_net = policy.model
+        torch.save(policy_net.state_dict(), os.path.join('/Users/jin/Downloads/FightingICE-jin/jin-log/log/discrete-bcq-200epoch-0516/', "actor.pth")) 
+
     # buffer
     buffer = load_buffer_ftg()# buffer = load_buffer(args.load_buffer_name)
     print("Replay buffer size:", len(buffer), flush=True)
@@ -157,7 +161,7 @@ def test_discrete_bcq(args=get_args()):
 
     def save_best_fn(policy,num=0):
         torch.save(policy.state_dict(), os.path.join(log_path, str(num)+"policy.pth")) 
-        torch.save(policy_net, os.path.join(log_path, str(num)+"actor.pth")) 
+        torch.save(policy_net.state_dict(), os.path.join(log_path, str(num)+"actor.pth")) 
 
     def stop_fn(mean_rewards):
         return False
