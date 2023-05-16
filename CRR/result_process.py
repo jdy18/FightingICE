@@ -1,5 +1,5 @@
 file_path = 'results/crr_pre_300wstep.txt'
-with open(file_path, 'r', encoding='gbk',errors='ignore') as f:
+with open(file_path, 'r', encoding='gbk', errors='ignore') as f:
     res = list(f)
 
 data = []
@@ -21,14 +21,18 @@ for item in data:
     if item['p1_HP'] >= item['p2_HP']:
         remain_time += 60-item['time']
 
-
-Speed = remain_time/90/60
-RemainHP = MyHp/90/400
-Advantage = 0.5*((MyHp/90-OppHp/90)/400)
-Damage = 1 - OppHp/90/400
+rounds = len(data)
+Speed = remain_time/rounds/60
+RemainHP = MyHp/rounds/400
+Advantage = 0.5*((MyHp/rounds-OppHp/rounds)/400)
+Damage = 1 - OppHp/rounds/400
+win_ratio = sum([item['p1_HP'] > item['p2_HP'] for item in data])/rounds
+hp_diff_avg  = sum([item['p1_HP'] - item['p2_HP'] for item in data])/rounds
 print('Speed:' + str(Speed))
 print('RemainHP:' + str(RemainHP))
 print('Advantage:' + str(Advantage))
 print('Damage:' + str(Damage))
+print('win_ratio:' + str(win_ratio))
+print('hp_diff_avg ' + str(hp_diff_avg ))
 
 

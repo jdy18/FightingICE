@@ -13,17 +13,19 @@ from torch.utils.tensorboard import SummaryWriter
 from tianshou.utils.net.common import Net
 from tianshou.data import Collector, VectorReplayBuffer
 from tianshou.policy import DiscreteCRRPolicy
-from tianshou.trainer import offline_trainer
+# from tianshou.trainer import offline_trainer
 from tianshou.utils import TensorboardLogger, WandbLogger
 from tianshou.utils.net.common import ActorCritic
 from tianshou.utils.net.discrete import Actor, Critic
 from utils import load_buffer_ftg
 from encoder import STATE_DIM, MelSpecEncoder,get_sound_encoder
 from discrete import Actor, Critic
+from offline_trainer import offline_trainer
+
 
 def get_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--task", type=str, default="crr_pretraindata")
+    parser.add_argument("--task", type=str, default="pretraindata")
     parser.add_argument("--seed", type=int, default=1626)
     parser.add_argument("--lr", type=float, default=1e-5)
     parser.add_argument("--gamma", type=float, default=0.99)
@@ -32,8 +34,8 @@ def get_args():
     parser.add_argument("--beta", type=float, default=1.)
     parser.add_argument("--min-q-weight", type=float, default=10.)
     parser.add_argument("--target-update-freq", type=int, default=5000)
-    parser.add_argument("--epoch", type=int, default=20)
-    parser.add_argument("--update-per-epoch", type=int, default=500000)
+    parser.add_argument("--epoch", type=int, default=200)
+    parser.add_argument("--update-per-epoch", type=int, default=5000)
     parser.add_argument("--batch-size", type=int, default=32)
     parser.add_argument("--hidden-sizes", type=int, nargs="*", default=[512])
     parser.add_argument("--test-num", type=int, default=10)
@@ -151,8 +153,10 @@ def test_discrete_crr(args=get_args()):
     # log
     now = datetime.datetime.now().strftime("%y%m%d-%H%M%S")
     args.algo_name = "crr"
-    log_name = os.path.join(args.task, args.algo_name, str(args.seed), now)
+
+    log_name = os.path.join(str(args.algo_name) + "_" + str(args.task), now)
     log_path = os.path.join(args.logdir, log_name)
+
 
     # logger
     if args.logger == "wandb":
@@ -169,9 +173,10 @@ def test_discrete_crr(args=get_args()):
         logger = TensorboardLogger(writer)
     else:  # wandb
         logger.load(writer)
+        
 
-    def save_best_fn(policy):
-        torch.save(policy.state_dict(), os.path.join(log_path, "policy.pth"))
+    def save_best_fn(policy,num= 0):
+        torch.save(policy.state_dict(), os.path.join(log_path, str(num)+"policy.pth")) #.state_dict()
 
     def stop_fn(mean_rewards):
         return False
