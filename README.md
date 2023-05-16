@@ -40,13 +40,15 @@ you need to install tianshou package first. https://github.com/thu-ml/tianshou
 - continuous version
     - which i change action to a 40-dim one-hot tensor. 
     - in training phrase, the loss goes higher and higher :/
+    - it keeps output same action in test phrase. To my understanding, \
+    this is because it learned a continuous action tensor, which cannot simply be `argmax()`.
     - To RUN:  
     `cd /BCQ/continuous`      
     `python cogftg_bcq_continuous.py`
 - discrete version
     - which should work. 
     - TO RUN:    
-`cd /BCQ/discrete   `   
+`cd /BCQ/discrete  `   
 `python cogftg_bcq_discrete.py`
 
 ## Useful links
