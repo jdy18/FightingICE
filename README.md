@@ -43,13 +43,31 @@ you need to install tianshou package first. https://github.com/thu-ml/tianshou
     - it keeps output same action in test phrase. To my understanding, \
     this is because it learned a continuous action tensor, which cannot simply be `argmax()`.
     - To RUN:  
-    `cd /BCQ/continuous`      
-    `python cogftg_bcq_continuous.py`
+     - change directory in `utils_bcq.py` to your buffer file.
+     - change epoch, step_nums in `cogftg_bcq_continuous.py`\
+      `cd /BCQ/continuous`      \
+      `python cogftg_bcq_continuous.py`
+     - the log, weights will be output under `log` directory.
+  
+    - To Test
+     - change directory parameters in `test.py` to your `policy.pth` file.\
+     i have pretrained weight files in `/results`, to which you can refer
+     - the results is set to output in `/results/bcq_vs_MctsAi23i.txt`
+
+
 - discrete version
     - which should work. 
     - TO RUN:    
-`cd /BCQ/discrete  `   
-`python cogftg_bcq_discrete.py`
+     - change directory in `utils_discrete.py` to your buffer file.
+     - change epoch, step_nums in `cogftg_bcq_discrete.py`\
+        `cd /BCQ/discrete`      \
+        `python cogftg_bcq_continuous.py`
+     - the log, weights will be output under `log` directory.
+    - To Test
+     - change directory parameters in `test.py` to your `policy.pth` file.\
+     i have pretrained weight files in `/results`, to which you can refer
+     - the results is set to output in `/results/bcq_discrete_vs_MctsAi23i.txt`
+
 
 ## Useful links
 [audio-only RL model : BlindAI](https://github.com/TeamFightingICE/BlindAI) \
