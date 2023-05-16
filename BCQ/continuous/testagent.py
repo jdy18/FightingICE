@@ -132,9 +132,11 @@ class TestAgent(AIInterface):
             self.action_idx = self.actor.act(state.to(self.device))
         else:
             self.action_idx = self.actor(state.reshape(-1).unsqueeze(0).to(self.device))
+        self.action_idx[0][1] = 0
+        self.action_idx[0][24] = 0
         action_idx = torch.argmax(self.action_idx) 
         self.cc.command_call(self.actions[action_idx])
-        print(self.actions[action_idx])
+        # print(self.actions[action_idx])
         self.inputKey = self.cc.get_skill_key()
 
 
