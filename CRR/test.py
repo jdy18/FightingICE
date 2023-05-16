@@ -118,11 +118,11 @@ if __name__ == '__main__':
                         help='Choose an encoder for the Blind AI')
     parser.add_argument('--port', type=int, default=50051, help='Port used by DareFightingICE')
     parser.add_argument('--p2', choices=['Sandbox', 'MctsAi23i'], type=str, default='MctsAi23i', help='The opponent AI')
-    parser.add_argument('--game_num', type=int, default=50, help='Number of games to play')
+    parser.add_argument('--game_num', type=int, default=10, help='Number of games to play')
     parser.add_argument('--device', type=str, default='cpu', help='device for test')
-    parser.add_argument('--actor_path', type=str, default='log/crr_pretraindata/crr/1626/230514-132821/policy.pth', help='actor path')  # actor网络路径
+    parser.add_argument('--actor_path', type=str, default='log\crr_pretraindata\\230516-201811\epoch100policy.pth', help='actor path')  # actor网络路径
     parser.add_argument('--actor_name', type=str, default='CRR', help='actor name')  # actor网络名字
-    parser.add_argument('--save_path', type=str, default='./results/crrrandomvs_MctsAi23i.txt', help='save path')  # 结果保存路径
+    parser.add_argument('--save_path', type=str, default='./results/crr_pre_15w.txt', help='save path')  # 结果保存路径
 
     args = parser.parse_args()
     characters = ['ZEN']

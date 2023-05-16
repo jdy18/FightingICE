@@ -11,7 +11,7 @@ import torch.nn.functional as FF
 from tianshou.data import ReplayBuffer
 from tianshou.utils import RunningMeanStd
 
-path='./Sample/Data_pretrain_0.pth'
+path='..\data\Data_pretrain_0.pth'
 def load_buffer_ftg(expert_data_task: str, action_one_hot:bool=True) -> ReplayBuffer:
     dataset = torch.load(path)
     if action_one_hot:
