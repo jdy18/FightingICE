@@ -33,7 +33,7 @@ def get_args():
     parser.add_argument("--ratio-upper-bound", type=float, default=20.)
     parser.add_argument("--beta", type=float, default=1.)
     parser.add_argument("--min-q-weight", type=float, default=10.)
-    parser.add_argument("--target-update-freq", type=int, default=5000)
+    parser.add_argument("--target-update-freq", type=int, default=500)
     parser.add_argument("--epoch", type=int, default=200)
     parser.add_argument("--update-per-epoch", type=int, default=5000)
     parser.add_argument("--batch-size", type=int, default=32)
