@@ -119,7 +119,6 @@ class TestAgent(AIInterface):
             action_idx = self.actor.act(state.unsqueeze(0).to(self.device)).float()
         else:
             action_idx,_ = self.actor(state.unsqueeze(0).to(self.device))
-            action_idx[:,38] *= 0
             action_idx = action_idx.float()
         action_idx = torch.argmax(action_idx)
         self.cc.command_call(self.actions[action_idx])

@@ -2,25 +2,55 @@
 test.py
 测试开始前，需要根据自己的actor网络修改load_actor_model（）函数来加载相应的模型
 需要输入的参数：
+ports: 启动的端口位置，默认为[50051,50052,50053]，即同时开启三个，最终运行的round数为len(ports) * game_num * 3
 actor_path: actor网络的保存位置，建议放在/model文件夹下
 save_path:测试结果保存的位置，建议放在/results文件夹下
 actor_name：atcor网络的名字，决定了如何加载模型
-参考命令：
-python test.py --actor_path ./model/actor.pt --actor_name RecurrentActor --save_path ./results/ppopretrain_vs_MctsAi23i.txt
+game_path: 游戏本体所在目录，默认为'../Game/'
+script_name:游戏脚本的名字，默认windows环境，即为‘'run-windows-amd64.bat’
+
+游戏环境设置：
+1.将游戏本体放在game_path下
+2.修改启动脚本，如windows脚本在前面增加以下代码
+if "%1"=="" (
+  set PORT=50051
+) else (
+  set PORT=%1
+)
+同时在启动游戏的命令的末尾加上如下参数
+  --port %PORT%
+
+linux环境下据说是这么写，还没测过，不行的话就把game_thread那段代码注释掉手动启动游戏：
+先加上
+if [ -z "$1" ]; then
+  PORT="50051"
+else
+  PORT="$1"
+fi
+同时在启动游戏的命令的末尾加上如下参数
+  --port $PORT
 '''
 
 import sys
 import argparse
 import torch
+
 from testagent import TestAgent
+import time
 from model import RecurrentActor
 from pyftg.gateway import Gateway
 import logging
+from discrete import Actor
 from encoder import SampleEncoder, RawEncoder, FFTEncoder, MelSpecEncoder,get_sound_encoder
-from  discrete import  Actor
 from tianshou.policy import DiscreteCRRPolicy
 from tianshou.utils.net.common import Net
 from tqdm import tqdm
+import os
+import subprocess
+import threading
+import time
+
+
 STATE_DIM = {
     1: {
         'conv1d': 160,
@@ -88,8 +118,7 @@ def load_actor_model(encoder_name, actor_path, device, actor_name = 'RecurrentAc
     return actor_model
 
 
-
-
+#获得声音encoder
 def get_sound_encoder(encoder_name, n_frame):
     encoder = None
     if encoder_name == 'conv1d':
@@ -102,27 +131,80 @@ def get_sound_encoder(encoder_name, n_frame):
         encoder = SampleEncoder()
     return encoder
 
+# 执行启动游戏脚本的函数
+def run_game(port, stop_event, game_path, script_name):
+    # command = "java -cp ..\Game\FightingICE.jar;./lib/*;./lib/lwjgl/*;./lib/lwjgl/natives/windows/amd64/*;./lib/grpc/*; " \
+    #           "Main --limithp 400 400 --grpc-auto --non-delay 0 --port %d --blind-player 2" % (port)
+    script_name = "run-windows-amd64.bat"
+    command = [script_name, str(port)]
+    process = subprocess.Popen(command, shell=True, cwd=game_path, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
-def get_score(self_HP: list, opp_HP: list):
+    #在适当的时候退出游戏,还没调通，先手动关闭吧
+    while(1):
+        time.sleep(10)
+        if stop_event.is_set():
+            process.terminate()
+            return
+
+
+#根据结果计算评价指标
+def get_score(results):
+    score = {}
+    self_HP = [result.remaining_hps[0] for result in results]
+    opp_HP = [result.remaining_hps[1] for result in results]
+    elapsed_frame = [result.elapsed_frame for result in results]
     total_rounds = len(self_HP)
+    score['round_num'] = total_rounds
+
     win_rounds = sum([self_HP[i] > opp_HP[i] for i in range(total_rounds)])
-    win_ratio = win_rounds / total_rounds
+    score['win_ratio'] = win_rounds / total_rounds
     hp_diff = sum([self_HP[i] - opp_HP[i] for i in range(total_rounds)])
-    hp_diff_avg = hp_diff / total_rounds
-    return win_ratio, hp_diff_avg
+    score['hp_diff_avg'] = hp_diff / total_rounds
+
+    remain_time = 0
+    for i in range(total_rounds):
+        if self_HP[i] > opp_HP[i]:
+            remain_time += (3600 - elapsed_frame[i])/60
+    score['Speed'] = remain_time / total_rounds / 60
+    score['RemainHP'] = sum(self_HP) / total_rounds / 400
+    score['Advantage'] = 0.5 * (sum(self_HP) - sum(opp_HP)) / total_rounds/ 400
+    score['Damage'] = 1 - sum(opp_HP) / total_rounds / 400
+
+    return score
+
+#初始化logger
+def log_init(args):
+    logger = logging.getLogger(__name__)
+    logger.setLevel(logging.DEBUG)
+    formatter = logging.Formatter(' %(message)s')
+    # create console handler and set level to debug
+    ch = logging.StreamHandler()
+    ch.setLevel(logging.DEBUG)
+    ch.setFormatter(formatter)
+    logger.addHandler(ch)
+
+    #file_log 将log输出到文件
+    file_handler = logging.FileHandler(filename=args.save_path, mode='w')
+    file_handler.setLevel(level=logging.INFO)
+    file_handler.setFormatter(formatter)
+    logger.addHandler(file_handler)
+
+    return logger
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--encoder', type=str, choices=['conv1d', 'fft', 'mel'], default='mel',
                         help='Choose an encoder for the Blind AI')
-    parser.add_argument('--port', type=int, default=50051, help='Port used by DareFightingICE')
-    parser.add_argument('--p2', choices=['Sandbox', 'MctsAi23i'], type=str, default='MctsAi23i', help='The opponent AI')
+    parser.add_argument('--ports', type=list, default=[50051,50052,50053], help='Port used by DareFightingICE')
+    parser.add_argument('--p2', choices=['Sounder', 'MctsAi23i'], type=str, default='MctsAi23i', help='The opponent AI')
     parser.add_argument('--game_num', type=int, default=10, help='Number of games to play')
     parser.add_argument('--device', type=str, default='cpu', help='device for test')
-    parser.add_argument('--actor_path', type=str, default='log\crr_pretraindata\\230516-201811\epoch100policy.pth', help='actor path')  # actor网络路径
+    parser.add_argument('--game_path', type=str, default='../Game/', help='game path')  # 游戏本体路径
+    parser.add_argument('--script_name', type=str, default='run-windows-amd64.bat', help='name of game script')  # 游戏启动的脚本名，默认windows
+    parser.add_argument('--actor_path', type=str, default='model/crr_random.pth', help='actor path')  # actor网络路径
     parser.add_argument('--actor_name', type=str, default='CRR', help='actor name')  # actor网络名字
-    parser.add_argument('--save_path', type=str, default='./results/crr_pre_15w.txt', help='save path')  # 结果保存路径
+    parser.add_argument('--save_path', type=str, default='./results/crr_pre.txt', help='save path')  # 结果保存路径
 
     args = parser.parse_args()
     characters = ['ZEN']
@@ -134,48 +216,67 @@ if __name__ == '__main__':
     actor_name = args.actor_name
     save_path = args.save_path
     p2 = args.p2
+    game_path = args.game_path
+    script_name = args.script_name
+    ports = args.ports
 
     # logger config
-    logger = logging.getLogger(__name__)
-    logger.setLevel(logging.DEBUG)
-    formatter = logging.Formatter(' %(message)s')
-    # create console handler and set level to debug
-    ch = logging.StreamHandler()
-    ch.setLevel(logging.DEBUG)
-    ch.setFormatter(formatter)
-    logger.addHandler(ch)
-
-    #file_log 将log输出到文件
-    file_handler = logging.FileHandler(filename=save_path, mode='w')
-    file_handler.setLevel(level=logging.INFO)
-    file_handler.setFormatter(formatter)
-    logger.addHandler(file_handler)
-
+    logger = log_init(args)
     logger.info('Input parameters:')
     logger.info(' '.join(f'{k}={v}\n' for k, v in vars(args).items()))
 
-    self_HP = []
-    opp_HP = []
+    # 创建线程并启动
+    game_threads = []
+    test_threads = []
+    results = []
+    stop_event = threading.Event()
 
-    for character in characters:
-        # FFT GRU
-        for _ in tqdm(range(game_num)):
-            # actor模型加载，以blindAI的RNN为例
-            actor_model = load_actor_model(encoder_name=encoder_name, actor_path=actor_path, device=device, actor_name=actor_name)
-            agent = TestAgent(n_frame=n_frame, logger=logger, actor=actor_model, device=device)
-            gateway = Gateway(port=50051)
-            ai_name = 'FFTGRU'
-            gateway.register_ai(ai_name, agent)
-            print("Start game")
-            gateway.run_game([character, character], [ai_name, p2], 1)
-            print("After game")
-            sys.stdout.flush()
-            gateway.close()
+    #运行游戏
+    for port in ports:
+        game_thread = threading.Thread(target=run_game, args=(port, stop_event, game_path, script_name))
+        game_thread.start()
+        game_threads.append(game_thread)
 
-            results = agent.results
-            for round_result in results:
-                self_HP.append(round_result.remaining_hps[0])
-                opp_HP.append(round_result.remaining_hps[1])
+    #在某个端口上测试的函数
+    def test(port, agent, game_num):
+        characters = ['ZEN']
+        for character in characters:
+            # FFT GRU
+            for _ in tqdm(range(game_num), desc="port:%d"%port):
+                #启动游戏
+                gateway = Gateway(port=port)
+                ai_name = 'ai'
+                gateway.register_ai(ai_name, agent)
+                print("Start game")
+                gateway.run_game([character, character], [ai_name, p2], 1)
+                print("After game")
+                sys.stdout.flush()
+                gateway.close()
 
-    win_ratio, hp_diff_avg = get_score(self_HP, opp_HP)
-    logger.info("\n win_ratio: %.3f, \n hp_diff_avg %.3f" %(win_ratio, hp_diff_avg))
+                for round_result in agent.results:
+                    results.append(round_result)
+        return
+
+    #遍历所有端口，同时进行测试
+    for port in ports:
+        actor_model = load_actor_model(encoder_name=encoder_name, actor_path=actor_path, device=device,
+                                       actor_name=actor_name)
+        agent = TestAgent(n_frame=n_frame, logger=logger, actor=actor_model, device=device)
+        test_thread = threading.Thread(target=test, args=(port, agent, game_num))
+        test_thread.start()
+        test_threads.append(test_thread)
+
+    # 等待所有线程完成
+    for thread in test_threads:
+        thread.join()
+    stop_event.set()
+
+    #获得评价指标
+    score = get_score(results)
+    for key in score:
+        logger.info(key + ": " + str(score[key]))
+
+
+
+
+
