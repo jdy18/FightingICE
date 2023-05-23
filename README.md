@@ -102,10 +102,10 @@ you need to install tianshou package first. https://github.com/thu-ml/tianshou
     the log, weights will be output under `log` directory.
 
     
+ ## Run PPO
+- RNN version
 
-
-
-
+- MLP version
 
 
 ## Useful links
