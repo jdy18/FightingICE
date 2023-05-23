@@ -673,7 +673,7 @@ if __name__ == '__main__':
     parser.add_argument('--p2', choices=['Sandbox', 'MctsAi23i'], type=str, required=True, help='The opponent AI')
     parser.add_argument('--recurrent', action='store_true', help='Use GRU')
     parser.add_argument('--n_frame', type=int, default=1, help='Number of frame to sample data')
-    parser.add_argument('--epoch', type=int, default=100, help='Number of epochs to train')
+    parser.add_argument('--epoch', type=int, default=10, help='Number of epochs to train')
     parser.add_argument('--training_iteration', type=int, default=60, help='Number of training iterations')
     parser.add_argument('--game_num', type=int, default=5, help='Number of games to play per iteration')
     args = parser.parse_args()
