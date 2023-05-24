@@ -12,7 +12,7 @@ python test.py --actor_path ./model/actor.pt --actor_name TD3BC --save_path ./re
 import sys
 import argparse
 import torch
-from testagent import TD3BCAgent
+from td3bcagent import TD3BCAgent
 from pyftg.gateway import Gateway
 import logging
 
@@ -34,12 +34,6 @@ HIDDEN_SIZE = 512
 RECURRENT_LAYERS = 1
 ACTION_NUM = 40
 
-#根据actor_name加载相应的网络， 需要测试其他网络时需要添加新的分支
-def load_actor_model(encoder_name, actor_path, device, actor_name = 'RecurrentActor'):
-    if actor_name == 'TD3BC':
-        actor_model= torch.load(actor_path,map_location=torch.device(device)).actor
-        actor_model.device=torch.device(device)
-    return actor_model
 
 
 
@@ -101,8 +95,7 @@ if __name__ == '__main__':
         # FFT GRU
         for _ in range(game_num):
             # actor模型加载，以blindAI的RNN为例
-            actor_model = load_actor_model(encoder_name=encoder_name, actor_path=actor_path, device=device, actor_name=actor_name)
-            agent = TD3BCAgent(n_frame=n_frame, logger=logger, actor=actor_model, device=device)
+            agent = TD3BCAgent(n_frame=n_frame, logger=logger, actor_path=actor_path,  actor_name=actor_name, device=device)
             gateway = Gateway(port=50051)
             ai_name = 'FFTGRU'
             gateway.register_ai(ai_name, agent)
