@@ -10,7 +10,7 @@ import torch
 from torch.utils.tensorboard import SummaryWriter
 from tianshou.data import Collector, VectorReplayBuffer
 from tianshou.policy import DiscreteBCQPolicy
-from tianshou.trainer import offline_trainer
+from offline_trainer import offline_trainer
 from tianshou.utils import TensorboardLogger, WandbLogger
 from tianshou.utils.net.common import ActorCritic
 from gymnasium import spaces #add
