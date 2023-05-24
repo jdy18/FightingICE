@@ -10,9 +10,8 @@ pip install -r requirements.txt
 ```
 ## Run the test
 - Run the ```run-windows-amd64.bat``` file to start the DareFightingICE-6.0.2
-```
-python test.py
-```
+- Use the commend ```python test.py``` to run our test file. Our test file will calculate the winning rate and print the fighting result of each round.
+- Use the commend ```python Main_PyAIvsPyAI.py``` to run standerd test file.
 ## Developers and Affiliations
 - Deyang Jiang [email](jiangdeyang2022@ia.ac.cn) (CASIA,Institute of Automation, Chinese Academy of Science )
 - Guoqing Ma [email](zgmaguoqing@163.com) (CASIA)
