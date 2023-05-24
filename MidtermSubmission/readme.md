@@ -1,5 +1,8 @@
 # TD3BC AI for DareFightingICE
 
+We are from Chinese Academy of Science. We developed an AI agent called TD3BC, which was trained by offline-Reinforcement learning algorithm.
+Our TD3BC can beat MctsAi65, and  reached 83.4% in winning rate.
+
 ## Installation:
 - Install python 3.8
 ```
@@ -10,7 +13,7 @@ pip install -r requirements.txt
 ```
 python test.py
 ```
-## Contributors
+## Developers and Affiliations
 - Deyang Jiang [email](jiangdeyang2022@ia.ac.cn) (CASIA,Institute of Automation, Chinese Academy of Science )
 - Guoqing Ma [email](zgmaguoqing@163.com) (CASIA)
 - Tongkun Su (SIAT, Shenzhen Instaitute of Advanced Technology Chinese Academy of Science)
