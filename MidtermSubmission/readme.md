@@ -17,6 +17,6 @@ python test.py
 - Deyang Jiang [email](jiangdeyang2022@ia.ac.cn) (CASIA,Institute of Automation, Chinese Academy of Science )
 - Guoqing Ma [email](zgmaguoqing@163.com) (CASIA)
 - Tongkun Su (SIAT, Shenzhen Instaitute of Advanced Technology Chinese Academy of Science)
-- Jin Chen (IIEInstitute of Information Engineering, CAS)
+- Jin Chen [email](chenjin@iie.ac.cn) (IIE, Institute of Information Engineering, Chinese Academy of Science)
 - Yuhan Zhang [email](3289360744@qq.com)(CASIA)
-- Yuanheng Zhu (CASIA,mentor)
+- Yuanheng Zhu (CASIA, mentor)
