@@ -87,33 +87,17 @@ def load_actor_model(encoder_name, actor_path, device, actor_name = 'RecurrentAc
             device=device,
         )
         encoder = get_sound_encoder('mel', n_frame=n_frame)
-        actor = Actor(
+        actor_model = Actor(
             feature_net,
             ACTION_NUM,
             hidden_sizes=[512],
             device=device,
-            softmax_output=False,
+            softmax_output=True,
             encoder=encoder
         ).to(args.device)
-        critic = None
-        optim = None
 
-        # define policy
-        policy = DiscreteCRRPolicy(
-            actor,
-            critic,
-            optim,
-        ).to(args.device)
-
-        policy_dict = torch.load(actor_path)
-        for key,_ in list(policy_dict.items()):
-            if not key.startswith("actor"):
-                del policy_dict[key]
-        policy.load_state_dict(policy_dict, strict=False)
-
-
-        policy.to(device)
-        actor_model = policy.actor
+        actor_dict = torch.load(actor_path)
+        actor_model.load_state_dict(actor_dict, strict=False)
 
     return actor_model
 
@@ -196,15 +180,15 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--encoder', type=str, choices=['conv1d', 'fft', 'mel'], default='mel',
                         help='Choose an encoder for the Blind AI')
-    parser.add_argument('--ports', type=list, default=[50051,50052,50053], help='Port used by DareFightingICE')
+    parser.add_argument('--ports', type=list, default=[50051,50052], help='Port used by DareFightingICE')
     parser.add_argument('--p2', choices=['Sounder', 'MctsAi23i'], type=str, default='MctsAi23i', help='The opponent AI')
-    parser.add_argument('--game_num', type=int, default=10, help='Number of games to play')
+    parser.add_argument('--game_num', type=int, default=2, help='Number of games to play')
     parser.add_argument('--device', type=str, default='cpu', help='device for test')
     parser.add_argument('--game_path', type=str, default='../Game/', help='game path')  # 游戏本体路径
     parser.add_argument('--script_name', type=str, default='run-windows-amd64.bat', help='name of game script')  # 游戏启动的脚本名，默认windows
-    parser.add_argument('--actor_path', type=str, default='model/crr_random.pth', help='actor path')  # actor网络路径
+    parser.add_argument('--actor_path', type=str, default='log/crr_ramdomdata_lr1e-7/230525-202917/epoch200policy.pth', help='actor path')  # actor网络路径
     parser.add_argument('--actor_name', type=str, default='CRR', help='actor name')  # actor网络名字
-    parser.add_argument('--save_path', type=str, default='./results/crr_pre.txt', help='save path')  # 结果保存路径
+    parser.add_argument('--save_path', type=str, default='./results/crr_prelr_1e-5.txt', help='save path')  # 结果保存路径
 
     args = parser.parse_args()
     characters = ['ZEN']
@@ -238,11 +222,14 @@ if __name__ == "__main__":
         game_threads.append(game_thread)
 
     #在某个端口上测试的函数
-    def test(port, agent, game_num):
+    def test(port, game_num):
         characters = ['ZEN']
         for character in characters:
             # FFT GRU
             for _ in tqdm(range(game_num), desc="port:%d"%port):
+                actor_model = load_actor_model(encoder_name=encoder_name, actor_path=actor_path, device=device,
+                                               actor_name=actor_name)
+                agent = TestAgent(n_frame=n_frame, logger=logger, actor=actor_model, device=device)
                 #启动游戏
                 gateway = Gateway(port=port)
                 ai_name = 'ai'
@@ -259,10 +246,7 @@ if __name__ == "__main__":
 
     #遍历所有端口，同时进行测试
     for port in ports:
-        actor_model = load_actor_model(encoder_name=encoder_name, actor_path=actor_path, device=device,
-                                       actor_name=actor_name)
-        agent = TestAgent(n_frame=n_frame, logger=logger, actor=actor_model, device=device)
-        test_thread = threading.Thread(target=test, args=(port, agent, game_num))
+        test_thread = threading.Thread(target=test, args=(port, game_num))
         test_thread.start()
         test_threads.append(test_thread)
 
