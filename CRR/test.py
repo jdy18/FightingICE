@@ -122,6 +122,14 @@ def run_game(port, stop_event, game_path, script_name):
     script_name = "run-windows-amd64.bat"
     command = [script_name, str(port)]
     process = subprocess.Popen(command, shell=True, cwd=game_path, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    stdout, stderr = process.communicate()
+
+    if process.returncode == 0:
+        print("Script executed successfully.")
+        print("STDOUT:", stdout.decode())
+    else:
+        print("Error executing script.")
+        print("STDERR:", stderr.decode())
 
     #在适当的时候退出游戏,还没调通，先手动关闭吧
     while(1):
@@ -180,9 +188,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--encoder', type=str, choices=['conv1d', 'fft', 'mel'], default='mel',
                         help='Choose an encoder for the Blind AI')
-    parser.add_argument('--ports', type=list, default=[50051,50052], help='Port used by DareFightingICE')
+    parser.add_argument('--ports', type=list, default=[50051,50052,50053,50054,50055,50056], help='Port used by DareFightingICE')
     parser.add_argument('--p2', choices=['Sounder', 'MctsAi23i'], type=str, default='MctsAi23i', help='The opponent AI')
-    parser.add_argument('--game_num', type=int, default=2, help='Number of games to play')
+    parser.add_argument('--game_num', type=int, default=5, help='Number of games to play')
     parser.add_argument('--device', type=str, default='cpu', help='device for test')
     parser.add_argument('--game_path', type=str, default='../Game/', help='game path')  # 游戏本体路径
     parser.add_argument('--script_name', type=str, default='run-windows-amd64.bat', help='name of game script')  # 游戏启动的脚本名，默认windows
