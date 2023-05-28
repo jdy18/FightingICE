@@ -1,0 +1,1195 @@
+ Input parameters:
+ encoder=mel
+ ports=[50051, 50052, 50053]
+ p2=MctsAi23i
+ game_num=10
+ device=cpu
+ game_path=/Users/jin/Downloads/DareFightingICE-6-2
+ script_name=run-windows-amd64.bat
+ actor_path=/Users/jin/FightingICE/BCQ/discrete/results/MLP_epoch200actor.pth
+ actor_name=discrete_bcq
+ save_path=/Users/jin/FightingICE/BCQ/discrete/results/bcq_MLP_vs_MctsAi23i..txt
+ hidden_sizes=[512]
+ phi=0.05
+ actor_lr=0.0003
+ critic_lr=1e-07
+ vae_hidden_sizes=[512, 512]
+ latent_dim=None
+ gamma=0.99
+ tau=0.005
+ lmbda=0.75
+ batch_size=32
+ data = mix
+
+ p1_HP:133
+ p2_HP:183
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:75
+ p2_HP:129
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:157
+ p2_HP:211
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:0
+ p2_HP:126
+ elapsed_frame:3466
+ Finished 2 round
+ p1_HP:62
+ p2_HP:164
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:156
+ p2_HP:28
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:30
+ p2_HP:160
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:191
+ p2_HP:117
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:128
+ p2_HP:170
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:3
+ p2_HP:70
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:181
+ p2_HP:72
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:11
+ p2_HP:97
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:264
+ p2_HP:174
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:134
+ p2_HP:14
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:74
+ p2_HP:118
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:13
+ p2_HP:0
+ elapsed_frame:3412
+ Finished 3 round
+ p1_HP:236
+ p2_HP:92
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:272
+ p2_HP:49
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:89
+ p2_HP:43
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:89
+ p2_HP:66
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:161
+ p2_HP:74
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:163
+ p2_HP:76
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:29
+ p2_HP:114
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:159
+ p2_HP:85
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:165
+ p2_HP:0
+ elapsed_frame:3584
+ Finished 3 round
+ p1_HP:98
+ p2_HP:143
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:67
+ p2_HP:60
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:84
+ p2_HP:132
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:0
+ p2_HP:150
+ elapsed_frame:3537
+ Finished 1 round
+ p1_HP:239
+ p2_HP:76
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:17
+ p2_HP:102
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:0
+ p2_HP:76
+ elapsed_frame:3416
+ Finished 2 round
+ p1_HP:48
+ p2_HP:96
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:48
+ p2_HP:85
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:215
+ p2_HP:200
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:271
+ p2_HP:82
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:143
+ p2_HP:0
+ elapsed_frame:3340
+ Finished 1 round
+ p1_HP:128
+ p2_HP:142
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:122
+ p2_HP:137
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:90
+ p2_HP:81
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:130
+ p2_HP:47
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:63
+ p2_HP:70
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:59
+ p2_HP:129
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:196
+ p2_HP:161
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:305
+ p2_HP:98
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:219
+ p2_HP:27
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:176
+ p2_HP:163
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:217
+ p2_HP:153
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:55
+ p2_HP:126
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:191
+ p2_HP:94
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:133
+ p2_HP:179
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:120
+ p2_HP:0
+ elapsed_frame:2907
+ Finished 3 round
+ p1_HP:66
+ p2_HP:107
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:238
+ p2_HP:192
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:113
+ p2_HP:127
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:124
+ p2_HP:67
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:111
+ p2_HP:95
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:163
+ p2_HP:112
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:120
+ p2_HP:68
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:174
+ p2_HP:47
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:0
+ p2_HP:120
+ elapsed_frame:2969
+ Finished 3 round
+ p1_HP:105
+ p2_HP:138
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:25
+ p2_HP:62
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:0
+ p2_HP:145
+ elapsed_frame:3584
+ Finished 1 round
+ p1_HP:168
+ p2_HP:60
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:73
+ p2_HP:49
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:249
+ p2_HP:73
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:101
+ p2_HP:179
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:15
+ p2_HP:63
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:295
+ p2_HP:0
+ elapsed_frame:3505
+ Finished 3 round
+ p1_HP:160
+ p2_HP:101
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:10
+ p2_HP:22
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:214
+ p2_HP:5
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:116
+ p2_HP:112
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:162
+ p2_HP:65
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:0
+ p2_HP:29
+ elapsed_frame:3214
+ Finished 2 round
+ p1_HP:151
+ p2_HP:0
+ elapsed_frame:3415
+ Finished 2 round
+ p1_HP:168
+ p2_HP:153
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:28
+ p2_HP:135
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:0
+ p2_HP:29
+ elapsed_frame:3298
+ Finished 3 round
+ p1_HP:145
+ p2_HP:8
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:165
+ p2_HP:57
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:86
+ p2_HP:187
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:145
+ p2_HP:31
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:187
+ p2_HP:73
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:49
+ p2_HP:2
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:165
+ p2_HP:71
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:43
+ p2_HP:84
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:30
+ p2_HP:20
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:44
+ p2_HP:69
+ elapsed_frame:3600
+ Finished 3 round
+ round_num: 90
+ win_ratio: 0.5666666666666667
+ hp_diff_avg: 26.877777777777776
+ Speed: 0.004435185185185184
+ RemainHP: 0.29491666666666666
+ Advantage: 0.03359722222222222
+ Damage: 0.7722777777777778
+
+ 
+ Input parameters:
+ encoder=mel
+ ports=[50051, 50052, 50053]
+ p2=MctsAi23i
+ game_num=10
+ device=cpu
+ game_path=/Users/jin/Downloads/DareFightingICE-6-2
+ script_name=run-windows-amd64.bat
+ actor_path=/Users/jin/FightingICE/BCQ/discrete/results/MLP_epoch200actor_random.pth
+ actor_name=discrete_bcq
+ save_path=/Users/jin/FightingICE/BCQ/discrete/results/bcq_MLP_vs_MctsAi23i..txt
+ hidden_sizes=[512]
+ phi=0.05
+ actor_lr=0.0003
+ critic_lr=1e-07
+ vae_hidden_sizes=[512, 512]
+ latent_dim=None
+ gamma=0.99
+ tau=0.005
+ lmbda=0.75
+ batch_size=32
+ data = random 
+
+ Input parameters:
+ encoder=mel
+ ports=[50051, 50052, 50053]
+ p2=MctsAi23i
+ game_num=10
+ device=cpu
+ game_path=/Users/jin/Downloads/DareFightingICE-6-2
+ script_name=run-windows-amd64.bat
+ actor_path=/Users/jin/FightingICE/BCQ/discrete/results/MLP_epoch200actor_random.pth
+ actor_name=discrete_bcq
+ save_path=/Users/jin/FightingICE/BCQ/discrete/results/bcq_MLP_vs_MctsAi23i..txt
+ hidden_sizes=[512]
+ phi=0.05
+ actor_lr=0.0003
+ critic_lr=1e-07
+ vae_hidden_sizes=[512, 512]
+ latent_dim=None
+ gamma=0.99
+ tau=0.005
+ lmbda=0.75
+ batch_size=32
+
+ p1_HP:0
+ p2_HP:64
+ elapsed_frame:3107
+ Finished 1 round
+ p1_HP:0
+ p2_HP:1
+ elapsed_frame:3331
+ Finished 1 round
+ p1_HP:36
+ p2_HP:63
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:88
+ p2_HP:0
+ elapsed_frame:3315
+ Finished 2 round
+ p1_HP:45
+ p2_HP:79
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:209
+ p2_HP:56
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:0
+ p2_HP:39
+ elapsed_frame:2995
+ Finished 3 round
+ p1_HP:135
+ p2_HP:143
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:0
+ p2_HP:66
+ elapsed_frame:3518
+ Finished 3 round
+ p1_HP:153
+ p2_HP:17
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:0
+ p2_HP:165
+ elapsed_frame:2830
+ Finished 1 round
+ p1_HP:321
+ p2_HP:0
+ elapsed_frame:3103
+ Finished 1 round
+ p1_HP:0
+ p2_HP:20
+ elapsed_frame:3034
+ Finished 2 round
+ p1_HP:229
+ p2_HP:215
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:76
+ p2_HP:22
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:51
+ p2_HP:110
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:157
+ p2_HP:105
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:47
+ p2_HP:80
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:155
+ p2_HP:59
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:260
+ p2_HP:115
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:274
+ p2_HP:66
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:21
+ p2_HP:104
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:110
+ p2_HP:0
+ elapsed_frame:3287
+ Finished 2 round
+ p1_HP:181
+ p2_HP:85
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:144
+ p2_HP:131
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:275
+ p2_HP:122
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:141
+ p2_HP:150
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:26
+ p2_HP:39
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:36
+ p2_HP:57
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:58
+ p2_HP:57
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:235
+ p2_HP:190
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:0
+ p2_HP:76
+ elapsed_frame:3402
+ Finished 2 round
+ p1_HP:45
+ p2_HP:76
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:0
+ p2_HP:144
+ elapsed_frame:2738
+ Finished 3 round
+ p1_HP:180
+ p2_HP:0
+ elapsed_frame:3225
+ Finished 3 round
+ p1_HP:43
+ p2_HP:106
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:87
+ p2_HP:38
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:33
+ p2_HP:87
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:141
+ p2_HP:104
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:0
+ p2_HP:216
+ elapsed_frame:2393
+ Finished 2 round
+ p1_HP:247
+ p2_HP:57
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:3
+ p2_HP:126
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:38
+ p2_HP:93
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:154
+ p2_HP:72
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:0
+ p2_HP:90
+ elapsed_frame:3465
+ Finished 3 round
+ p1_HP:252
+ p2_HP:146
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:185
+ p2_HP:8
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:149
+ p2_HP:10
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:118
+ p2_HP:100
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:8
+ p2_HP:0
+ elapsed_frame:3480
+ Finished 2 round
+ p1_HP:38
+ p2_HP:90
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:124
+ p2_HP:99
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:286
+ p2_HP:123
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:76
+ p2_HP:63
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:0
+ p2_HP:71
+ elapsed_frame:3329
+ Finished 1 round
+ p1_HP:26
+ p2_HP:131
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:161
+ p2_HP:16
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:178
+ p2_HP:111
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:109
+ p2_HP:88
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:146
+ p2_HP:77
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:50
+ p2_HP:75
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:279
+ p2_HP:51
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:116
+ p2_HP:142
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:211
+ p2_HP:245
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:54
+ p2_HP:0
+ elapsed_frame:2960
+ Finished 1 round
+ p1_HP:128
+ p2_HP:38
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:155
+ p2_HP:52
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:128
+ p2_HP:0
+ elapsed_frame:3484
+ Finished 2 round
+ p1_HP:34
+ p2_HP:0
+ elapsed_frame:3123
+ Finished 2 round
+ p1_HP:28
+ p2_HP:59
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:83
+ p2_HP:94
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:178
+ p2_HP:188
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:185
+ p2_HP:107
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:96
+ p2_HP:57
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:47
+ p2_HP:37
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:17
+ p2_HP:94
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:51
+ p2_HP:85
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:174
+ p2_HP:39
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:265
+ p2_HP:130
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:203
+ p2_HP:2
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:244
+ p2_HP:67
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:48
+ p2_HP:84
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:136
+ p2_HP:223
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:52
+ p2_HP:95
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:112
+ p2_HP:115
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:163
+ p2_HP:144
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:198
+ p2_HP:88
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:0
+ p2_HP:190
+ elapsed_frame:3097
+ Finished 3 round
+ p1_HP:150
+ p2_HP:16
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:151
+ p2_HP:119
+ elapsed_frame:3600
+ Finished 3 round
+ round_num: 90
+ win_ratio: 0.5555555555555556
+ hp_diff_avg: 28.355555555555554
+ Speed: 0.008712962962962962
+ RemainHP: 0.2785
+ Advantage: 0.035444444444444445
+ Damage: 0.7923888888888888
+
+ Input parameters:
+ encoder=mel
+ ports=[50051, 50052, 50053]
+ p2=MctsAi23i
+ game_num=10
+ device=cpu
+ game_path=/Users/jin/Downloads/DareFightingICE-6-2
+ script_name=run-windows-amd64.bat
+ actor_path=/Users/jin/FightingICE/BCQ/discrete/results/MLP_epoch200actor_pretrain.pth
+ actor_name=discrete_bcq
+ save_path=/Users/jin/FightingICE/BCQ/discrete/results/bcq_MLP_vs_MctsAi23i..txt
+ hidden_sizes=[512]
+ phi=0.05
+ actor_lr=0.0003
+ critic_lr=1e-07
+ vae_hidden_sizes=[512, 512]
+ latent_dim=None
+ gamma=0.99
+ tau=0.005
+ lmbda=0.75
+ batch_size=32
+ data = pretrain
+
+ p1_HP:202
+ p2_HP:147
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:176
+ p2_HP:117
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:273
+ p2_HP:146
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:212
+ p2_HP:176
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:175
+ p2_HP:131
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:79
+ p2_HP:76
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:319
+ p2_HP:217
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:283
+ p2_HP:174
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:246
+ p2_HP:33
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:0
+ p2_HP:1
+ elapsed_frame:3530
+ Finished 1 round
+ p1_HP:0
+ p2_HP:133
+ elapsed_frame:3463
+ Finished 1 round
+ p1_HP:213
+ p2_HP:47
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:318
+ p2_HP:0
+ elapsed_frame:3370
+ Finished 2 round
+ p1_HP:110
+ p2_HP:24
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:175
+ p2_HP:136
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:182
+ p2_HP:48
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:198
+ p2_HP:120
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:188
+ p2_HP:40
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:115
+ p2_HP:104
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:55
+ p2_HP:97
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:199
+ p2_HP:55
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:152
+ p2_HP:95
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:293
+ p2_HP:83
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:187
+ p2_HP:191
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:173
+ p2_HP:131
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:310
+ p2_HP:105
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:283
+ p2_HP:98
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:153
+ p2_HP:185
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:86
+ p2_HP:46
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:158
+ p2_HP:161
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:180
+ p2_HP:151
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:150
+ p2_HP:103
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:43
+ p2_HP:84
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:60
+ p2_HP:61
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:205
+ p2_HP:128
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:208
+ p2_HP:51
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:170
+ p2_HP:108
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:210
+ p2_HP:0
+ elapsed_frame:3303
+ Finished 1 round
+ p1_HP:80
+ p2_HP:79
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:208
+ p2_HP:35
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:180
+ p2_HP:125
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:199
+ p2_HP:68
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:320
+ p2_HP:104
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:67
+ p2_HP:91
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:210
+ p2_HP:139
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:299
+ p2_HP:53
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:167
+ p2_HP:138
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:199
+ p2_HP:30
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:262
+ p2_HP:125
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:237
+ p2_HP:47
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:210
+ p2_HP:113
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:80
+ p2_HP:0
+ elapsed_frame:3592
+ Finished 3 round
+ p1_HP:55
+ p2_HP:89
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:103
+ p2_HP:119
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:181
+ p2_HP:88
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:210
+ p2_HP:79
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:70
+ p2_HP:61
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:198
+ p2_HP:108
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:30
+ p2_HP:68
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:27
+ p2_HP:88
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:168
+ p2_HP:121
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:0
+ p2_HP:151
+ elapsed_frame:3279
+ Finished 3 round
+ p1_HP:130
+ p2_HP:78
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:200
+ p2_HP:141
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:86
+ p2_HP:89
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:193
+ p2_HP:52
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:80
+ p2_HP:94
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:85
+ p2_HP:102
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:150
+ p2_HP:103
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:174
+ p2_HP:96
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:143
+ p2_HP:97
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:231
+ p2_HP:79
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:117
+ p2_HP:6
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:75
+ p2_HP:0
+ elapsed_frame:3471
+ Finished 1 round
+ p1_HP:58
+ p2_HP:117
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:305
+ p2_HP:179
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:150
+ p2_HP:66
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:95
+ p2_HP:14
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:53
+ p2_HP:130
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:151
+ p2_HP:115
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:223
+ p2_HP:78
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:230
+ p2_HP:103
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:218
+ p2_HP:126
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:23
+ p2_HP:28
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:202
+ p2_HP:180
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:43
+ p2_HP:84
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:187
+ p2_HP:152
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:169
+ p2_HP:64
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:58
+ p2_HP:16
+ elapsed_frame:3600
+ Finished 3 round
+ p1_HP:141
+ p2_HP:70
+ elapsed_frame:3600
+ Finished 3 round
+ round_num: 90
+ win_ratio: 0.7666666666666667
+ hp_diff_avg: 67.64444444444445
+ Speed: 0.0020493827160493827
+ RemainHP: 0.4019166666666667
+ Advantage: 0.08455555555555555
+ Damage: 0.7671944444444445
