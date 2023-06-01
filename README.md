@@ -102,11 +102,13 @@ you need to install tianshou package first. https://github.com/thu-ml/tianshou
     the log, weights will be output under `log` directory.
 
     
- ## Run PPO
-- RNN version
-
-- MLP version
-
+ ## Run PPO (Using CPU)
+- To train:  
+  - RNN version:
+  - - ` python cogftg_cql.py --recurrent `
+- MLP version:
+  - ` python cogftg_cql.py `
+  - 
 
 ## Useful links
 [audio-only RL model : BlindAI](https://github.com/TeamFightingICE/BlindAI) \
