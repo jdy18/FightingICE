@@ -37,6 +37,8 @@ This page contains the source code and model of a deep reinforcement learning bl
 - Both win ratio and average HP difference will be printed out.
 
 ## Results
+
+
 |  feature_net | training iterations | epoch | test rounds | average win_ratio | average hp_diff_avg | Speed | RemainHP | Advantage |  Damage |
 | ----|----|----|----|----|----|----|----|----|----|----|
 | RNN | 60 | 10 | 90 | 0.580 | 16.387 | 0.0043 | 0.2709 | 0.0205 | 0.7701 |
