@@ -103,12 +103,15 @@ you need to install tianshou package first. https://github.com/thu-ml/tianshou
 
     
  ## Run PPO (Using CPU)
+
 - To train:  
+  - change the Experiment id to whatever you want
   - RNN version:
-  - - ` python cogftg_cql.py --recurrent `
-- MLP version:
-  - ` python cogftg_cql.py `
-  - 
+  - run ` train_cpu.py --recurrent `
+  - MLP version:
+  - run ` train_cpu.py `
+- To Test:
+- 
 
 ## Useful links
 [audio-only RL model : BlindAI](https://github.com/TeamFightingICE/BlindAI) \
