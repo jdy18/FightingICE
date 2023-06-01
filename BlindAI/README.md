@@ -1,6 +1,6 @@
 # Deep Reinforcement Learning Blind AI
 
-This page contains the source code and model of our deep reinforcement learning blind AI (Blind AI), the details of which are given in this [paper](https://arxiv.org/abs/2205.07444).
+This page contains the source code and model of a deep reinforcement learning blind AI (Blind AI, see in https://github.com/TeamFightingICE/BlindAI), the details of which are given in this [paper](https://arxiv.org/abs/2205.07444).
 
 ## Installation:
 - Install miniconda for python 3.8: https://docs.conda.io/en/latest/miniconda.html.
@@ -35,6 +35,8 @@ This page contains the source code and model of our deep reinforcement learning 
 - Run ```python trained_ai/test.py --p2 MctsAi65 --encoder fft``` to begin testing.
 - After testing, please run ```python analyze_fight_result.py --path {path}``` where ```path``` is the location of ```log/point``` of DareFightingICE.
 - Both win ratio and average HP difference will be printed out.
+
+## Results
 
 ## Tested Environment
 - Intel(R) Xeon(R) W-2135 CPU @ 3.70GHz   3.70 GHz
