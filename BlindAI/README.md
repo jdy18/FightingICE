@@ -39,10 +39,10 @@ This page contains the source code and model of a deep reinforcement learning bl
 ## Results
 
 
-|  feature_net | training iterations | epoch | test rounds | average win_ratio | average hp_diff_avg | Speed | RemainHP | Advantage |  Damage |
-| ----|----|----|----|----|----|----|----|----|----|
-| RNN | 60 | 10 | 90 | 0.580 | 16.387 | 0.0043 | 0.2709 | 0.0205 | 0.7701 |
-| MLP | 60 | 10 | 90 | 0.49 | 3.628 | 0.0011 | 0.2144 |0.0032| 0.7919 |
+|  feature_net | encoder | training iterations | epoch | test rounds | average win_ratio | average hp_diff_avg | Speed | RemainHP | Advantage |  Damage |
+| ----|----|----|----|----|----|----|----|----|----|----|
+| RNN | mel | 60 | 10 | 90 | 0.580 | 16.387 | 0.0043 | 0.2709 | 0.0205 | 0.7701 |
+| MLP | mel | 60 | 10 | 90 | 0.49 | 3.628 | 0.0011 | 0.2144 |0.0032| 0.7919 |
 
 
 ## Tested Environment
