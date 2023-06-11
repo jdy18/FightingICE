@@ -56,3 +56,43 @@ def normalize_all_obs_in_replay_buffer(
     replay_buffer._meta["obs_next"] = (replay_buffer.obs_next -
                                        obs_rms.mean) / np.sqrt(obs_rms.var + _eps)
     return replay_buffer, obs_rms
+
+def load_buffer_sequence(expert_data_task: str, action_one_hot:bool=True,sequence_len=120) -> ReplayBuffer:
+    dataset = torch.load(path)
+    if action_one_hot:
+        dataset["actions"]=FF.one_hot(dataset["actions"], num_classes=40)
+
+    dataset = dataset_process(dataset,sequence_len)
+
+    replay_buffer = ReplayBuffer.from_data(
+        obs=dataset["observations"],
+        act=dataset["actions"],
+        rew=dataset["rewards"],
+        done=dataset["terminals"],
+        obs_next=dataset["next_observations"],
+        terminated=dataset["terminals"],
+        truncated=np.zeros(len(dataset["terminals"]))
+    )
+    return replay_buffer
+
+def dataset_process(dataset,sequence_len):
+    dataset["observations"] = dataset["observations"].view(dataset["observations"].shape[0],-1)
+    dataset["next_observations"] = dataset["next_observations"].view(dataset["observations"].shape[0],-1)
+    dataset["terminals"] = dataset["terminals"].to(torch.bool)
+
+    end_idx = torch.where(dataset["terminals"]==1)[0] + 1
+    split_idx = [0]
+    for idx in end_idx:
+        while split_idx[-1] + sequence_len < idx:
+            split_idx.append(split_idx[-1] + sequence_len)
+        split_idx.append(int(idx))
+    end_idx = split_idx[1:]
+    start_idx = split_idx[:-1]
+    for key in dataset:
+        dataset[key] = [dataset[key][start:end].numpy() for start, end in zip(start_idx, end_idx)]
+
+    #dataset["time"] = [np.arange(length) for length in (end_idx - start_idx)]
+    return dataset
+
+
+
