@@ -28,10 +28,14 @@ from fight_agent import get_sound_encoder,STATE_DIM
 
 def get_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--task", type=str, default="HalfCheetah-v2")
+    parser.add_argument("--task", type=str, default="DareFightingICE_pretrain")
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument(
         "--expert-data-task", type=str, default="halfcheetah-expert-v2"
+    )
+    parser.add_argument(
+        "--expert-data-path", type=str, default='./Sample/Data_pretrain_1.pth',
+        choices=['./Sample/Data_random_1.pth','./Sample/Data_pretrain_1.pth']
     )
     parser.add_argument("--buffer-size", type=int, default=1000000)
     parser.add_argument("--hidden-sizes", type=int, nargs="*", default=[256, 256])
@@ -207,7 +211,7 @@ def test_td3_bc():
         collector.collect(n_episode=1, render=1 / 35)
 
     if not args.watch:
-        replay_buffer = load_buffer_ftg(args.expert_data_task)
+        replay_buffer = load_buffer_ftg(args.expert_data_task,args.expert_data_path)
         if args.norm_obs:
             replay_buffer, obs_rms = normalize_all_obs_in_replay_buffer(replay_buffer)
             #test_envs.set_obs_rms(obs_rms)

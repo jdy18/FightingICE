@@ -12,8 +12,8 @@ import torch.nn.functional as FF
 from tianshou.data import ReplayBuffer
 from tianshou.utils import RunningMeanStd
 
-path='./Sample/Data_random_1.pth'
-def load_buffer_ftg(expert_data_task: str) -> ReplayBuffer:
+# path='./Sample/Data_random_1.pth'
+def load_buffer_ftg(expert_data_task: str,path='./Sample/Data_random_1.pth') -> ReplayBuffer:
     dataset = torch.load(path)
     # dataset = d4rl.qlearning_dataset(gym.make(expert_data_task))
     dataset["actions"]=FF.one_hot(dataset["actions"], num_classes=40)
