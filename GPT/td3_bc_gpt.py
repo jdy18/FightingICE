@@ -80,6 +80,7 @@ class TD3BCGPTPolicy(TD3Policy):
 
     def learn(self, batch: Batch, **kwargs: Any) -> Dict[str, float]:
         # critic 1&2
+
         td1, critic1_loss = self._mse_optimizer(
             batch, self.critic1, self.critic1_optim
         )
@@ -108,13 +109,38 @@ class TD3BCGPTPolicy(TD3Policy):
             "loss/critic2": critic2_loss.item(),
         }
 
+    #预处理，合并batch的前两维，并且计算目标值batch.returns = r + Q(S',a')
     def process_fn(
         self, batch: Batch, buffer: ReplayBuffer, indices: np.ndarray
     ) -> Batch:
-        batch=batch
-        # batch = self.compute_nstep_return(
-        #     batch, buffer, indices, self._target_q, self._gamma, self._n_step,
-        #     self._rew_norm
-        # )
+        gamma = 0.99
+        def dimension_combine(x):
+            size = x.shape
+            return x.reshape(size[0] * size[1], *size[2:])
+        batch.act = dimension_combine(batch.act)
+        batch.done = dimension_combine(batch.done)
+        batch.obs = dimension_combine(batch.obs)
+        batch.obs_next = dimension_combine(batch.obs_next)
+        batch.rew = dimension_combine(batch.rew)
+        batch.terminated = dimension_combine(batch.terminated)
+
+        act_ = self(batch, model="actor_old", input="obs_next").act
+        noise = torch.randn(size=act_.shape, device=act_.device) * self._policy_noise
+        if self._noise_clip > 0.0:
+            noise = noise.clamp(-self._noise_clip, self._noise_clip)
+        act_ += noise
+        target_q_torch= torch.min(
+            self.critic1_old(batch.obs_next, act_),
+            self.critic2_old(batch.obs_next, act_),
+        )
+
+        target_q = to_numpy(target_q_torch.reshape(target_q_torch.shape[0], -1))
+        # 原有代码中的Value_mask被注释掉了，应该是用于判断游戏是否结束的部分
+        # target_q = target_q * BasePolicy.value_mask(buffer, terminal).reshape(-1, 1)
+        # end_flag = buffer.done.copy()
+        # end_flag[buffer.unfinished_index()] = True
+        # target_q = _nstep_return(rew, end_flag, target_q, indices, gamma, n_step)
+
+        batch.returns = batch.rew + gamma * target_q
         return batch
 

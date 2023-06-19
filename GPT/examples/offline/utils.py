@@ -1,6 +1,6 @@
 from typing import Tuple
 
-import d4rl
+#import d4rl
 import gymnasium as gym
 import h5py
 import numpy as np

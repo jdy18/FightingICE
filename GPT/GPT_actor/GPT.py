@@ -11,6 +11,7 @@ class GPT(nn.Module):
                  n_embd=768,
                  n_layer=12,
                  n_head=12,
+                 sequence_len=120,
                  device='cpu'):
         '''
         Args:
@@ -33,15 +34,20 @@ class GPT(nn.Module):
         self.output = nn.Linear(n_embd, 40)
         self.output_dim=40
         self.to(self.device)
+        self.sequence_len = sequence_len
 
 
     def forward(self, x,
                 state= None,
     ):
+        input_size = x.shape
+        x = x.view(int(input_size[0]/self.sequence_len), self.sequence_len, *input_size[1:])
         x = self.embedding(x)
         res = self.model(inputs_embeds=x, return_dict=True)
         emb = res['last_hidden_state']
         logits = self.output(emb)
+        output_size = logits.shape
+        logits = logits.view(output_size[0] * output_size[1], *output_size[2:])
         return logits,state
 
 if __name__ == '__main__':

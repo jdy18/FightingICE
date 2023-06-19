@@ -11,8 +11,8 @@ import torch
 from torch.utils.tensorboard import SummaryWriter
 from gym import spaces
 
-from examples.offline.utils import load_buffer_d4rl, normalize_all_obs_in_replay_buffer
-from utils import load_buffer_ftg,load_buffer_sequence
+#from examples.offline.utils import load_buffer_d4rl, normalize_all_obs_in_replay_buffer
+from utils import load_buffer_ftg,load_buffer_sequence,normalize_all_obs_in_replay_buffer
 from tianshou.data import Collector
 from tianshou.env import SubprocVectorEnv, VectorEnvNormObs
 from tianshou.exploration import GaussianNoise
@@ -47,8 +47,8 @@ def get_args():
     parser.add_argument("--epoch", type=int, default=200)
     parser.add_argument("--step-per-epoch", type=int, default=5000)
     parser.add_argument("--n-step", type=int, default=1)
-    parser.add_argument("--batch-size", type=int, default=256)
-
+    parser.add_argument("--batch-size", type=int, default=16)
+    parser.add_argument("--sequence_len", type=int, default=12)
     parser.add_argument("--alpha", type=float, default=2.5)
     parser.add_argument("--exploration-noise", type=float, default=0.1)
     parser.add_argument("--policy-noise", type=float, default=0.2)
@@ -120,6 +120,7 @@ def test_td3_bc():
         args.state_shape,
         #hidden_sizes=args.hidden_sizes,
         device=args.device,
+        sequence_len = args.sequence_len,
     )
     actor = Actor(
         net_a,
@@ -214,7 +215,7 @@ def test_td3_bc():
         collector.collect(n_episode=1, render=1 / 35)
 
     if not args.watch:
-        replay_buffer = load_buffer_ftg(args.expert_data_task,args.expert_data_path)
+        replay_buffer = load_buffer_sequence(args.expert_data_task,args.expert_data_path, sequence_len=args.sequence_len)
         if args.norm_obs:
             replay_buffer, obs_rms = normalize_all_obs_in_replay_buffer(replay_buffer)
             #test_envs.set_obs_rms(obs_rms)
