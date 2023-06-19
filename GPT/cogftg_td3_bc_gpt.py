@@ -12,26 +12,33 @@ from torch.utils.tensorboard import SummaryWriter
 from gym import spaces
 
 from examples.offline.utils import load_buffer_d4rl, normalize_all_obs_in_replay_buffer
-from utils import load_buffer_ftg
+from utils import load_buffer_ftg,load_buffer_sequence
 from tianshou.data import Collector
 from tianshou.env import SubprocVectorEnv, VectorEnvNormObs
 from tianshou.exploration import GaussianNoise
-from tianshou.policy import TD3BCPolicy
+# from tianshou.policy import TD3BCPolicy
+from td3_bc_gpt import TD3BCGPTPolicy
 from tianshou.trainer import offline_trainer
 from offline_trainer import offline_trainer
 from tianshou.utils import TensorboardLogger, WandbLogger
 from tianshou.utils.net.common import Net
+from GPT_actor.GPT import GPT
 # from tianshou.utils.net.continuous import  #Critic #Actor
 from continuous import Actor,Critic
+
 from fight_agent import get_sound_encoder,STATE_DIM
 
 
 def get_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--task", type=str, default="HalfCheetah-v2")
+    parser.add_argument("--task", type=str, default="DareFightingICE_pretrain")
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument(
         "--expert-data-task", type=str, default="halfcheetah-expert-v2"
+    )
+    parser.add_argument(
+        "--expert-data-path", type=str, default='./Sample/Data_pretrain_1.pth',
+        choices=['./Sample/Data_random_1.pth','./Sample/Data_pretrain_1.pth']
     )
     parser.add_argument("--buffer-size", type=int, default=1000000)
     parser.add_argument("--hidden-sizes", type=int, nargs="*", default=[256, 256])
@@ -39,7 +46,7 @@ def get_args():
     parser.add_argument("--critic-lr", type=float, default=1e-7) #3e-4
     parser.add_argument("--epoch", type=int, default=200)
     parser.add_argument("--step-per-epoch", type=int, default=5000)
-    parser.add_argument("--n-step", type=int, default=3)
+    parser.add_argument("--n-step", type=int, default=1)
     parser.add_argument("--batch-size", type=int, default=256)
 
     parser.add_argument("--alpha", type=float, default=2.5)
@@ -109,9 +116,9 @@ def test_td3_bc():
     # model
     # actor network
     encoder=get_sound_encoder('mel')
-    net_a = Net(
+    net_a = GPT(
         args.state_shape,
-        hidden_sizes=args.hidden_sizes,
+        #hidden_sizes=args.hidden_sizes,
         device=args.device,
     )
     actor = Actor(
@@ -127,14 +134,14 @@ def test_td3_bc():
     net_c1 = Net(
         args.state_shape,
         args.action_shape,
-        hidden_sizes=args.hidden_sizes,
+        #hidden_sizes=args.hidden_sizes,
         concat=True,
         device=args.device,
     )
     net_c2 = Net(
         args.state_shape,
         args.action_shape,
-        hidden_sizes=args.hidden_sizes,
+        #hidden_sizes=args.hidden_sizes,
         concat=True,
         device=args.device,
 
@@ -144,7 +151,7 @@ def test_td3_bc():
     critic2 = Critic(net_c2, device=args.device,encoder=encoder).to(args.device)
     critic2_optim = torch.optim.Adam(critic2.parameters(), lr=args.critic_lr)
 
-    policy = TD3BCPolicy(
+    policy = TD3BCGPTPolicy(
         actor,
         actor_optim,
         critic1,
@@ -207,7 +214,7 @@ def test_td3_bc():
         collector.collect(n_episode=1, render=1 / 35)
 
     if not args.watch:
-        replay_buffer = load_buffer_ftg(args.expert_data_task)
+        replay_buffer = load_buffer_ftg(args.expert_data_task,args.expert_data_path)
         if args.norm_obs:
             replay_buffer, obs_rms = normalize_all_obs_in_replay_buffer(replay_buffer)
             #test_envs.set_obs_rms(obs_rms)
