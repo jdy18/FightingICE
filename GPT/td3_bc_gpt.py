@@ -141,6 +141,9 @@ class TD3BCGPTPolicy(TD3Policy):
         # end_flag[buffer.unfinished_index()] = True
         # target_q = _nstep_return(rew, end_flag, target_q, indices, gamma, n_step)
 
-        batch.returns = batch.rew + gamma * target_q
+        target_q = batch.rew.reshape(-1,1) + gamma * target_q
+        batch.returns = to_torch_as(target_q, target_q_torch)
+        if hasattr(batch, "weight"):  # prio buffer update
+            batch.weight = to_torch_as(batch.weight, target_q_torch)
         return batch
 
