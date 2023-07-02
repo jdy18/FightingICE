@@ -50,6 +50,17 @@ class GPT(nn.Module):
         logits = logits.view(output_size[0] * output_size[1], *output_size[2:])
         return logits,state
 
+    def act(self, x,
+                state= None,
+    ):
+        x = x[-self.sequence_len:,].unsqueeze(0)
+        x = self.embedding(x)
+        res = self.model(inputs_embeds=x, return_dict=True)
+        emb = res['last_hidden_state']
+        logits = self.output(emb)
+        logits = logits.squeeze(0)
+        return logits,state
+
 if __name__ == '__main__':
     gpt = GPT()
     gpt.eval()

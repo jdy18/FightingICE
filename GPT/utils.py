@@ -76,8 +76,8 @@ def load_buffer_sequence(expert_data_task: str, action_one_hot:bool=True,sequenc
     return replay_buffer
 
 def dataset_process(dataset,sequence_len):
-    dataset["observations"] = dataset["observations"].view(dataset["observations"].shape[0],-1)
-    dataset["next_observations"] = dataset["next_observations"].view(dataset["observations"].shape[0],-1)
+    dataset["observations"] = dataset["observations"]
+    dataset["next_observations"] = dataset["next_observations"]
     dataset["terminals"] = dataset["terminals"].to(torch.bool)
     for key in dataset:
         dataset[key] = dataset[key].numpy()

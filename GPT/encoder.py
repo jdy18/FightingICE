@@ -137,6 +137,18 @@ class FFTEncoder(BaseEncoder):
         x = F.relu(self.linear2(x))
         return x
 
+def get_sound_encoder(encoder_name, n_frame=1):
+    encoder = None
+    if encoder_name == 'conv1d':
+        encoder = RawEncoder(frame_skip=n_frame)
+    elif encoder_name == 'fft':
+        encoder = FFTEncoder(frame_skip=n_frame)
+    elif encoder_name == 'mel':
+        encoder = MelSpecEncoder(frame_skip=n_frame)
+    else:
+        encoder = SampleEncoder(frame_skip=n_frame)
+    return encoder
+
 
 if __name__ == '__main__':
     # TODO: compare data value vs pytorch version

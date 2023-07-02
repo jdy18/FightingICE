@@ -188,13 +188,13 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--encoder', type=str, choices=['conv1d', 'fft', 'mel'], default='mel',
                         help='Choose an encoder for the Blind AI')
-    parser.add_argument('--ports', type=list, default=[50051,50052,50053,50054,50055,50056], help='Port used by DareFightingICE')
+    parser.add_argument('--ports', type=list, default=[50051], help='Port used by DareFightingICE')
     parser.add_argument('--p2', choices=['Sounder', 'MctsAi23i'], type=str, default='MctsAi23i', help='The opponent AI')
     parser.add_argument('--game_num', type=int, default=5, help='Number of games to play')
     parser.add_argument('--device', type=str, default='cpu', help='device for test')
     parser.add_argument('--game_path', type=str, default='../Game/', help='game path')  # 游戏本体路径
     parser.add_argument('--script_name', type=str, default='run-windows-amd64.bat', help='name of game script')  # 游戏启动的脚本名，默认windows
-    parser.add_argument('--actor_path', type=str, default='log/crr_ramdomdata_lr1e-7/230525-202917/epoch200policy.pth', help='actor path')  # actor网络路径
+    parser.add_argument('--actor_path', type=str, default='model/crr_random.pth', help='actor path')  # actor网络路径
     parser.add_argument('--actor_name', type=str, default='CRR', help='actor name')  # actor网络名字
     parser.add_argument('--save_path', type=str, default='./results/crr_prelr_1e-5.txt', help='save path')  # 结果保存路径
 

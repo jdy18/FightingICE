@@ -42,13 +42,13 @@ def get_args():
     )
     parser.add_argument("--buffer-size", type=int, default=1000000)
     parser.add_argument("--hidden-sizes", type=int, nargs="*", default=[256, 256])
-    parser.add_argument("--actor-lr", type=float, default=3e-4)
-    parser.add_argument("--critic-lr", type=float, default=1e-7) #3e-4
+    parser.add_argument("--actor-lr", type=float, default=1e-7)
+    parser.add_argument("--critic-lr", type=float, default=1e-8)
     parser.add_argument("--epoch", type=int, default=200)
     parser.add_argument("--step-per-epoch", type=int, default=5000)
     parser.add_argument("--n-step", type=int, default=1)
-    parser.add_argument("--batch-size", type=int, default=16)
-    parser.add_argument("--sequence_len", type=int, default=12)
+    parser.add_argument("--batch-size", type=int, default=4)
+    parser.add_argument("--sequence_len", type=int, default=120)
     parser.add_argument("--alpha", type=float, default=2.5)
     parser.add_argument("--exploration-noise", type=float, default=0.1)
     parser.add_argument("--policy-noise", type=float, default=0.2)
@@ -66,7 +66,7 @@ def get_args():
         "--device", type=str, default="cuda" if torch.cuda.is_available() else "cpu"
     )
     parser.add_argument("--resume-path", type=str, default=None)
-    parser.add_argument("--resume-id", type=str, default=None)
+    parser.add_argument("--resume-id", type=str, default=19)
     parser.add_argument(
         "--logger",
         type=str,
@@ -172,7 +172,8 @@ def test_td3_bc():
 
     # load a previous policy
     if args.resume_path:
-        policy.load_state_dict(torch.load(args.resume_path, map_location=args.device))
+        policy = torch.load(args.resume_path, map_location=args.device)
+       # policy.load_state_dict(torch.load(args.resume_path, map_location=args.device))
         print("Loaded agent from: ", args.resume_path)
 
     # collector

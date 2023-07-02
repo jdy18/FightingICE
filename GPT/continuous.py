@@ -73,15 +73,29 @@ class Actor(nn.Module):
             device=self.device,
             dtype=torch.float32,
         )
-        left=obs[:,:800]
-        right=obs[:,800:]
-        obs=torch.stack([left,right],dim=2)
-
         if self.encoder is not None:
             obs=self.relu(self.flatten(self.encoder(obs)))
         logits, hidden = self.preprocess(obs, state)
         logits = self.max_action * torch.tanh(self.last(logits))
         return logits, hidden
+
+    def act(
+        self,
+        obs: Union[np.ndarray, torch.Tensor],
+        state: Any = None,
+        info: Dict[str, Any] = {},
+    ) -> Tuple[torch.Tensor, Any]:
+        """Mapping: obs -> logits -> action."""
+        obs = torch.as_tensor(
+            obs,
+            device=self.device,
+            dtype=torch.float32,
+        )
+        if self.encoder is not None:
+            obs=self.relu(self.flatten(self.encoder(obs)))
+        logits, hidden = self.preprocess.act(obs, state)
+        logits = self.max_action * torch.tanh(self.last(logits))
+        return logits
 
 
 class Critic(nn.Module):
