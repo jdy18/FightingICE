@@ -12,7 +12,7 @@ import torch.nn.functional as FF
 from tianshou.data import ReplayBuffer
 from tianshou.utils import RunningMeanStd
 
-path='../data/Sample_data.pth'
+path='../data/Data_random_0.pth'
 def load_buffer_ftg(expert_data_task: str) -> ReplayBuffer:
     dataset = torch.load(path)
     # dataset = d4rl.qlearning_dataset(gym.make(expert_data_task))
@@ -93,7 +93,7 @@ def dataset_process(dataset,sequence_len):
             start_idx.append(split_idx)
             end_idx.append(split_idx + sequence_len)
             split_idx += sequence_len
-        start_idx.append(idx - sequence_len)
+        start_idx.append(max(idx - sequence_len,0))
         end_idx.append(idx)
         split_idx = idx
 

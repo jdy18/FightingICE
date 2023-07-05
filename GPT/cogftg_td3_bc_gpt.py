@@ -47,8 +47,8 @@ def get_args():
     parser.add_argument("--epoch", type=int, default=200)
     parser.add_argument("--step-per-epoch", type=int, default=5000)
     parser.add_argument("--n-step", type=int, default=1)
-    parser.add_argument("--batch-size", type=int, default=4)
-    parser.add_argument("--sequence_len", type=int, default=120)
+    parser.add_argument("--batch-size", type=int, default=16)
+    parser.add_argument("--sequence_len", type=int, default=256)
     parser.add_argument("--alpha", type=float, default=2.5)
     parser.add_argument("--exploration-noise", type=float, default=0.1)
     parser.add_argument("--policy-noise", type=float, default=0.2)
@@ -121,6 +121,9 @@ def test_td3_bc():
         #hidden_sizes=args.hidden_sizes,
         device=args.device,
         sequence_len = args.sequence_len,
+        n_embd=512,
+        n_layer=3,
+        n_head=4,
     )
     actor = Actor(
         net_a,
@@ -132,20 +135,23 @@ def test_td3_bc():
     actor_optim = torch.optim.Adam(actor.parameters(), lr=args.actor_lr)
 
     # critic network
-    net_c1 = Net(
-        args.state_shape,
-        args.action_shape,
+    net_c1 = GPT(
+        sum(args.state_shape + args.action_shape),
         #hidden_sizes=args.hidden_sizes,
-        concat=True,
         device=args.device,
+        sequence_len = args.sequence_len,
+        n_embd=512,
+        n_layer=3,
+        n_head=4,
     )
-    net_c2 = Net(
-        args.state_shape,
-        args.action_shape,
+    net_c2 = GPT(
+        sum(args.state_shape + args.action_shape),
         #hidden_sizes=args.hidden_sizes,
-        concat=True,
         device=args.device,
-
+        sequence_len = args.sequence_len,
+        n_embd=512,
+        n_layer=3,
+        n_head=4,
     )
     critic1 = Critic(net_c1, device=args.device,encoder=encoder).to(args.device)
     critic1_optim = torch.optim.Adam(critic1.parameters(), lr=args.critic_lr)
@@ -202,7 +208,7 @@ def test_td3_bc():
         logger.load(writer)
 
     def save_best_fn(policy,num=0):
-        torch.save(policy, os.path.join(log_path, str(num)+"policy.pth")) #.state_dict()
+        torch.save(policy.actor, os.path.join(log_path, str(num)+"policy.pth")) #.state_dict()
 
     def watch():
         if args.resume_path is None:
