@@ -57,7 +57,6 @@ def get_args():
     parser.add_argument("--tau", type=float, default=0.005)
     parser.add_argument("--gamma", type=float, default=0.99)
     parser.add_argument("--norm-obs", type=int, default=1)
-
     parser.add_argument("--eval-freq", type=int, default=1)
     parser.add_argument("--test-num", type=int, default=10)
     parser.add_argument("--logdir", type=str, default="log")
@@ -121,7 +120,7 @@ def test_td3_bc():
         #hidden_sizes=args.hidden_sizes,
         device=args.device,
         sequence_len = args.sequence_len,
-        n_embd=512,
+        n_embd=256,
         n_layer=3,
         n_head=4,
     )
@@ -140,7 +139,7 @@ def test_td3_bc():
         #hidden_sizes=args.hidden_sizes,
         device=args.device,
         sequence_len = args.sequence_len,
-        n_embd=512,
+        n_embd=256,
         n_layer=3,
         n_head=4,
     )
@@ -149,7 +148,7 @@ def test_td3_bc():
         #hidden_sizes=args.hidden_sizes,
         device=args.device,
         sequence_len = args.sequence_len,
-        n_embd=512,
+        n_embd=256,
         n_layer=3,
         n_head=4,
     )
