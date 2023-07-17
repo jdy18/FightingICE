@@ -9,8 +9,7 @@ class OfflineTrainersave(OfflineTrainer):
     def __next__(self) -> Union[None, Tuple[int, Dict[str, Any], Dict[str, Any]]]:
         super().__next__()
         if self.save_best_fn:
-            if self.epoch % 1 == 0:
-                self.save_best_fn(self.policy,'epoch'+str(self.epoch))
+            self.save_best_fn(self.policy,'epoch'+str(self.epoch))
 
 def offline_trainer(*args, **kwargs) -> Dict[str, Union[float, str]]:  # type: ignore
     """Wrapper for offline_trainer run method.

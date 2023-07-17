@@ -98,7 +98,7 @@ class TestAgent(AIInterface):
             return
 
         self.inputKey.empty()
-        self.cc.skill_cancel()
+        #self.cc.skill_cancel()
         obs = self.raw_audio_memory.copy()
         if self.just_inited:
             self.just_inited = False
@@ -120,16 +120,18 @@ class TestAgent(AIInterface):
             obs = np.concatenate((obs,increase_obs), axis=0)
         obs = obs.reshape([obs.shape[0]//self.n_frame, 800 * self.n_frame, 2])  #每个节点的状态大小为[800 * n_frame,2]
 
-        # get action
-        state = torch.tensor(obs, dtype=torch.float32)
+        #上一个动作已经执行完才开始
+        if not self.cc.get_skill_flag():
+            # get action
+            state = torch.tensor(obs, dtype=torch.float32)
+            if hasattr(self.actor, 'act'):  # 有act函数用act，否则用forward(原soundagent中的forward函数生成的是分布)
+                action_idx = self.actor.act(state.to(self.device)).float()[-1]
+            else:
+                action_idx = self.actor(state.to(self.device)).float()[-1]
+            action_idx = torch.argmax(action_idx)
+            self.cc.command_call(self.actions[action_idx])
 
-        if hasattr(self.actor, 'act'):  # 有act函数用act，否则用forward(原soundagent中的forward函数生成的是分布)
-            action_idx = self.actor.act(state.to(self.device)).float()[-1]
-        else:
-            action_idx = self.actor(state.to(self.device)).float()[-1]
-        #action_idx[26] = 0
-        action_idx = torch.argmax(action_idx)
-        self.cc.command_call(self.actions[action_idx])
+        #self.cc.command_call("STAND_D_DF_FC")
         self.inputKey = self.cc.get_skill_key()
 
 

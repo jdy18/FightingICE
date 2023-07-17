@@ -12,7 +12,7 @@ from torch.utils.tensorboard import SummaryWriter
 from gym import spaces
 
 #from examples.offline.utils import load_buffer_d4rl, normalize_all_obs_in_replay_buffer
-from utils import load_buffer_ftg,load_buffer_sequence,normalize_all_obs_in_replay_buffer
+from utils import load_buffer_sequence,normalize_all_obs_in_replay_buffer
 from tianshou.data import Collector
 from tianshou.env import SubprocVectorEnv, VectorEnvNormObs
 from tianshou.exploration import GaussianNoise
@@ -48,7 +48,10 @@ def get_args():
     parser.add_argument("--step-per-epoch", type=int, default=5000)
     parser.add_argument("--n-step", type=int, default=1)
     parser.add_argument("--batch-size", type=int, default=16)
-    parser.add_argument("--sequence_len", type=int, default=256)
+    parser.add_argument("--sequence_len", type=int, default=240)
+    parser.add_argument("--n_embd", type=float, default=256)
+    parser.add_argument("--n_layer", type=float, default=3)
+    parser.add_argument("--n_head", type=float, default=4)
     parser.add_argument("--alpha", type=float, default=2.5)
     parser.add_argument("--exploration-noise", type=float, default=0.1)
     parser.add_argument("--policy-noise", type=float, default=0.2)
@@ -120,9 +123,9 @@ def test_td3_bc():
         #hidden_sizes=args.hidden_sizes,
         device=args.device,
         sequence_len = args.sequence_len,
-        n_embd=256,
-        n_layer=3,
-        n_head=4,
+        n_embd=args.n_embd,
+        n_layer=args.n_layer,
+        n_head=args.n_head,
     )
     actor = Actor(
         net_a,
@@ -139,18 +142,18 @@ def test_td3_bc():
         #hidden_sizes=args.hidden_sizes,
         device=args.device,
         sequence_len = args.sequence_len,
-        n_embd=256,
-        n_layer=3,
-        n_head=4,
+        n_embd=args.n_embd,
+        n_layer=args.n_layer,
+        n_head=args.n_head,
     )
     net_c2 = GPT(
         sum(args.state_shape + args.action_shape),
         #hidden_sizes=args.hidden_sizes,
         device=args.device,
         sequence_len = args.sequence_len,
-        n_embd=256,
-        n_layer=3,
-        n_head=4,
+        n_embd=args.n_embd,
+        n_layer=args.n_layer,
+        n_head=args.n_head,
     )
     critic1 = Critic(net_c1, device=args.device,encoder=encoder).to(args.device)
     critic1_optim = torch.optim.Adam(critic1.parameters(), lr=args.critic_lr)
@@ -207,7 +210,9 @@ def test_td3_bc():
         logger.load(writer)
 
     def save_best_fn(policy,num=0):
-        torch.save(policy.actor, os.path.join(log_path, str(num)+"policy.pth")) #.state_dict()
+        torch.save(policy.state_dict(), os.path.join(log_path, "latest_policy.pth")) #最新policy
+        if int(num) % 5 == 0:
+            torch.save(policy.actor, os.path.join(log_path, str(num)+"_actor.pth")) #5epoch 保存一次actor
 
     def watch():
         if args.resume_path is None:

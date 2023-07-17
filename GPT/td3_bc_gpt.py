@@ -94,8 +94,8 @@ class TD3BCGPTPolicy(TD3Policy):
             act = self(batch, eps=0.0).act
             q_value = self.critic1(batch.obs, act)
             lmbda = self._alpha / q_value.abs().mean().detach()
-            actor_loss = -lmbda * q_value.mean() + F.mse_loss(
-                act, to_torch_as(batch.act, act)
+            actor_loss = -lmbda * q_value.mean() + F.cross_entropy(
+                to_torch_as(batch.act, act),torch.argmax(act, dim=1), ignore_index=-100
             )
             self.actor_optim.zero_grad()
             actor_loss.backward()
@@ -129,7 +129,7 @@ class TD3BCGPTPolicy(TD3Policy):
         if self._noise_clip > 0.0:
             noise = noise.clamp(-self._noise_clip, self._noise_clip)
         act_ += noise
-        target_q_torch= torch.min(
+        target_q_torch = torch.min(
             self.critic1_old(batch.obs_next, act_),
             self.critic2_old(batch.obs_next, act_),
         )
