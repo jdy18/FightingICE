@@ -32,7 +32,9 @@ def normalize_all_obs_in_replay_buffer(
 def load_buffer_sequence(expert_data_task: str, action_one_hot:bool=True,sequence_len=120) -> ReplayBuffer:
     dataset = torch.load(path)
     if action_one_hot:
-        dataset["actions"]=FF.one_hot(dataset["actions"], num_classes=40)
+        mask = torch.where(dataset["actions"] == -100)  #为缺省值的位置
+        dataset["actions"] = FF.one_hot(dataset["actions"].clamp(0, 39), num_classes=40)
+        dataset["actions"][mask] = dataset["actions"][mask] * 0
 
     dataset = dataset_process(dataset,sequence_len)
 
