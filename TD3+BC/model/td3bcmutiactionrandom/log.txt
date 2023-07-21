@@ -1,0 +1,766 @@
+Input parameters:
+ encoder=fft
+ port=50051
+ p2=MctsAi23i
+ game_num=50
+ device=cuda
+ actor_path=./model/actor.pth
+ actor_name=TD3BC
+ save_path=./results/td3bcpretrain_vs_MctsAi23i.txt
+
+E0720 10:17:31.225000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+Start game
+ p1_HP:0
+ p2_HP:124
+ elapsed_frame:3264
+ Finished 1 round
+ p1_HP:118
+ p2_HP:3
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:140
+ p2_HP:3
+ elapsed_frame:3600
+ Finished 3 round
+After game
+Start game
+E0720 10:20:47.777000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+ p1_HP:200
+ p2_HP:0
+ elapsed_frame:2740
+ Finished 1 round
+ p1_HP:187
+ p2_HP:0
+ elapsed_frame:2344
+ Finished 2 round
+ p1_HP:80
+ p2_HP:0
+ elapsed_frame:3041
+ Finished 3 round
+After game
+E0720 10:23:17.664000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+Start game
+ p1_HP:144
+ p2_HP:0
+ elapsed_frame:3349
+ Finished 1 round
+ p1_HP:11
+ p2_HP:38
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:51
+ p2_HP:0
+ elapsed_frame:2922
+ Finished 3 round
+After game
+E0720 10:26:16.756000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+Start game
+ p1_HP:64
+ p2_HP:14
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:109
+ p2_HP:0
+ elapsed_frame:3155
+ Finished 2 round
+ p1_HP:14
+ p2_HP:6
+ elapsed_frame:3600
+ Finished 3 round
+After game
+E0720 10:29:23.688000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+Start game
+ p1_HP:162
+ p2_HP:48
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:78
+ p2_HP:0
+ elapsed_frame:3359
+ Finished 2 round
+ p1_HP:95
+ p2_HP:0
+ elapsed_frame:3111
+ Finished 3 round
+After game
+Start game
+E0720 10:32:25.973000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+ p1_HP:177
+ p2_HP:0
+ elapsed_frame:2979
+ Finished 1 round
+ p1_HP:165
+ p2_HP:0
+ elapsed_frame:3083
+ Finished 2 round
+ p1_HP:181
+ p2_HP:0
+ elapsed_frame:3072
+ Finished 3 round
+After game
+Start game
+E0720 10:35:13.052000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+ p1_HP:71
+ p2_HP:0
+ elapsed_frame:3239
+ Finished 1 round
+ p1_HP:34
+ p2_HP:20
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:166
+ p2_HP:0
+ elapsed_frame:3264
+ Finished 3 round
+After game
+E0720 10:38:16.083000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+Start game
+ p1_HP:0
+ p2_HP:101
+ elapsed_frame:2786
+ Finished 1 round
+ p1_HP:206
+ p2_HP:0
+ elapsed_frame:2599
+ Finished 2 round
+ p1_HP:254
+ p2_HP:0
+ elapsed_frame:3172
+ Finished 3 round
+After game
+E0720 10:40:53.304000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+Start game
+ p1_HP:140
+ p2_HP:0
+ elapsed_frame:3314
+ Finished 1 round
+ p1_HP:245
+ p2_HP:0
+ elapsed_frame:3569
+ Finished 2 round
+ p1_HP:76
+ p2_HP:0
+ elapsed_frame:2846
+ Finished 3 round
+After game
+E0720 10:43:50.038000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+Start game
+ p1_HP:54
+ p2_HP:0
+ elapsed_frame:2825
+ Finished 1 round
+ p1_HP:158
+ p2_HP:0
+ elapsed_frame:2828
+ Finished 2 round
+ p1_HP:105
+ p2_HP:39
+ elapsed_frame:3600
+ Finished 3 round
+After game
+Start game
+E0720 10:46:38.775000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+ p1_HP:170
+ p2_HP:0
+ elapsed_frame:2645
+ Finished 1 round
+ p1_HP:19
+ p2_HP:0
+ elapsed_frame:3144
+ Finished 2 round
+ p1_HP:81
+ p2_HP:0
+ elapsed_frame:2934
+ Finished 3 round
+After game
+E0720 10:49:18.941000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+Start game
+ p1_HP:181
+ p2_HP:0
+ elapsed_frame:2789
+ Finished 1 round
+ p1_HP:19
+ p2_HP:2
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:20
+ p2_HP:81
+ elapsed_frame:3600
+ Finished 3 round
+After game
+E0720 10:52:19.977000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+Start game
+ p1_HP:6
+ p2_HP:0
+ elapsed_frame:3297
+ Finished 1 round
+ p1_HP:75
+ p2_HP:0
+ elapsed_frame:3248
+ Finished 2 round
+ p1_HP:171
+ p2_HP:0
+ elapsed_frame:3122
+ Finished 3 round
+After game
+E0720 10:55:15.586000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+Start game
+ p1_HP:80
+ p2_HP:0
+ elapsed_frame:3233
+ Finished 1 round
+ p1_HP:50
+ p2_HP:0
+ elapsed_frame:3532
+ Finished 2 round
+ p1_HP:16
+ p2_HP:0
+ elapsed_frame:3024
+ Finished 3 round
+After game
+Start game
+E0720 10:58:13.208000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+ p1_HP:267
+ p2_HP:0
+ elapsed_frame:3531
+ Finished 1 round
+ p1_HP:70
+ p2_HP:0
+ elapsed_frame:2698
+ Finished 2 round
+ p1_HP:156
+ p2_HP:0
+ elapsed_frame:2507
+ Finished 3 round
+After game
+Start game
+E0720 11:00:53.335000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+ p1_HP:33
+ p2_HP:0
+ elapsed_frame:3171
+ Finished 1 round
+ p1_HP:121
+ p2_HP:0
+ elapsed_frame:3278
+ Finished 2 round
+ p1_HP:69
+ p2_HP:28
+ elapsed_frame:3600
+ Finished 3 round
+After game
+Start game
+E0720 11:03:55.353000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+ p1_HP:181
+ p2_HP:0
+ elapsed_frame:2596
+ Finished 1 round
+ p1_HP:194
+ p2_HP:0
+ elapsed_frame:3004
+ Finished 2 round
+ p1_HP:108
+ p2_HP:38
+ elapsed_frame:3600
+ Finished 3 round
+After game
+E0720 11:06:43.272000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+Start game
+ p1_HP:1
+ p2_HP:0
+ elapsed_frame:2865
+ Finished 1 round
+ p1_HP:103
+ p2_HP:0
+ elapsed_frame:3398
+ Finished 2 round
+ p1_HP:59
+ p2_HP:0
+ elapsed_frame:3541
+ Finished 3 round
+After game
+E0720 11:09:41.319000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+Start game
+ p1_HP:100
+ p2_HP:0
+ elapsed_frame:3229
+ Finished 1 round
+ p1_HP:156
+ p2_HP:0
+ elapsed_frame:2988
+ Finished 2 round
+ p1_HP:150
+ p2_HP:0
+ elapsed_frame:3157
+ Finished 3 round
+After game
+E0720 11:12:32.140000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+Start game
+ p1_HP:32
+ p2_HP:15
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:51
+ p2_HP:0
+ elapsed_frame:3461
+ Finished 2 round
+ p1_HP:58
+ p2_HP:0
+ elapsed_frame:3216
+ Finished 3 round
+After game
+E0720 11:15:38.152000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+Start game
+ p1_HP:89
+ p2_HP:0
+ elapsed_frame:3042
+ Finished 1 round
+ p1_HP:48
+ p2_HP:0
+ elapsed_frame:3441
+ Finished 2 round
+ p1_HP:68
+ p2_HP:0
+ elapsed_frame:2499
+ Finished 3 round
+After game
+Start game
+E0720 11:18:22.435000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+ p1_HP:174
+ p2_HP:0
+ elapsed_frame:3414
+ Finished 1 round
+ p1_HP:0
+ p2_HP:102
+ elapsed_frame:2935
+ Finished 2 round
+ p1_HP:109
+ p2_HP:0
+ elapsed_frame:2440
+ Finished 3 round
+After game
+Start game
+E0720 11:21:03.465000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+ p1_HP:83
+ p2_HP:0
+ elapsed_frame:3308
+ Finished 1 round
+ p1_HP:0
+ p2_HP:92
+ elapsed_frame:2997
+ Finished 2 round
+ p1_HP:122
+ p2_HP:0
+ elapsed_frame:3338
+ Finished 3 round
+After game
+E0720 11:23:58.848000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+Start game
+ p1_HP:88
+ p2_HP:0
+ elapsed_frame:2529
+ Finished 1 round
+ p1_HP:0
+ p2_HP:131
+ elapsed_frame:2377
+ Finished 2 round
+ p1_HP:0
+ p2_HP:1
+ elapsed_frame:2616
+ Finished 3 round
+After game
+E0720 11:26:18.817000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+Start game
+ p1_HP:213
+ p2_HP:0
+ elapsed_frame:2552
+ Finished 1 round
+ p1_HP:71
+ p2_HP:0
+ elapsed_frame:3120
+ Finished 2 round
+ p1_HP:153
+ p2_HP:0
+ elapsed_frame:3242
+ Finished 3 round
+After game
+E0720 11:29:02.025000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+Start game
+ p1_HP:36
+ p2_HP:60
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:62
+ p2_HP:0
+ elapsed_frame:3276
+ Finished 2 round
+ p1_HP:154
+ p2_HP:27
+ elapsed_frame:3600
+ Finished 3 round
+After game
+E0720 11:32:11.357000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+Start game
+Exception in thread Thread-53:
+Traceback (most recent call last):
+  File "C:\ProgramData\Miniconda3\envs\py3.8\lib\threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "C:\ProgramData\Miniconda3\envs\py3.8\lib\site-packages\pyftg\ai_controller.py", line 29, in run
+    for state in self.participate_rpc():
+  File "C:\Users\Administrator\AppData\Roaming\Python\Python38\site-packages\grpc\_channel.py", line 475, in __next__
+After game
+    return self._next()
+  File "C:\Users\Administrator\AppData\Roaming\Python\Python38\site-packages\grpc\_channel.py", line 881, in _next
+    raise self
+grpc._channel._MultiThreadedRendezvous: <_MultiThreadedRendezvous of RPC that terminated with:
+	status = StatusCode.UNKNOWN
+	details = "Stream removed"
+	debug_error_string = "UNKNOWN:Error received from peer  {grpc_message:"Stream removed", grpc_status:2, created_time:"2023-07-20T04:17:46.366935556+00:00"}"
+>
+E0720 12:17:46.484000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+Start game
+ p1_HP:0
+ p2_HP:86
+ elapsed_frame:3028
+ Finished 1 round
+ p1_HP:0
+ p2_HP:1
+ elapsed_frame:2526
+ Finished 2 round
+ p1_HP:331
+ p2_HP:0
+ elapsed_frame:3208
+ Finished 3 round
+After game
+Start game
+E0720 12:20:47.401000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+ p1_HP:122
+ p2_HP:0
+ elapsed_frame:3541
+ Finished 1 round
+ p1_HP:21
+ p2_HP:0
+ elapsed_frame:3331
+ Finished 2 round
+ p1_HP:115
+ p2_HP:0
+ elapsed_frame:2767
+ Finished 3 round
+After game
+E0720 12:23:42.503000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+Start game
+ p1_HP:148
+ p2_HP:0
+ elapsed_frame:3198
+ Finished 1 round
+ p1_HP:308
+ p2_HP:0
+ elapsed_frame:2948
+ Finished 2 round
+ p1_HP:190
+ p2_HP:0
+ elapsed_frame:3535
+ Finished 3 round
+After game
+E0720 12:26:38.503000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+Start game
+ p1_HP:140
+ p2_HP:0
+ elapsed_frame:2730
+ Finished 1 round
+ p1_HP:71
+ p2_HP:0
+ elapsed_frame:3173
+ Finished 2 round
+ p1_HP:317
+ p2_HP:0
+ elapsed_frame:3237
+ Finished 3 round
+After game
+E0720 12:29:25.825000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+Start game
+ p1_HP:0
+ p2_HP:52
+ elapsed_frame:2939
+ Finished 1 round
+ p1_HP:288
+ p2_HP:0
+ elapsed_frame:3311
+ Finished 2 round
+ p1_HP:95
+ p2_HP:0
+ elapsed_frame:3323
+ Finished 3 round
+After game
+Start game
+E0720 12:32:20.076000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+ p1_HP:80
+ p2_HP:0
+ elapsed_frame:2803
+ Finished 1 round
+ p1_HP:55
+ p2_HP:9
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:73
+ p2_HP:0
+ elapsed_frame:3416
+ Finished 3 round
+After game
+E0720 12:35:18.257000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+Start game
+ p1_HP:66
+ p2_HP:0
+ elapsed_frame:3180
+ Finished 1 round
+ p1_HP:282
+ p2_HP:0
+ elapsed_frame:3442
+ Finished 2 round
+ p1_HP:105
+ p2_HP:0
+ elapsed_frame:2732
+ Finished 3 round
+After game
+E0720 12:38:08.869000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+Start game
+ p1_HP:63
+ p2_HP:0
+ elapsed_frame:2726
+ Finished 1 round
+ p1_HP:22
+ p2_HP:0
+ elapsed_frame:3377
+ Finished 2 round
+ p1_HP:98
+ p2_HP:0
+ elapsed_frame:2575
+ Finished 3 round
+After game
+Start game
+E0720 12:40:48.022000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+ p1_HP:136
+ p2_HP:0
+ elapsed_frame:2726
+ Finished 1 round
+ p1_HP:134
+ p2_HP:55
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:0
+ p2_HP:28
+ elapsed_frame:2933
+ Finished 3 round
+After game
+Start game
+E0720 12:43:36.931000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+ p1_HP:22
+ p2_HP:0
+ elapsed_frame:3443
+ Finished 1 round
+ p1_HP:6
+ p2_HP:34
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:71
+ p2_HP:2
+ elapsed_frame:3600
+ Finished 3 round
+After game
+E0720 12:46:48.962000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+Start game
+ p1_HP:211
+ p2_HP:0
+ elapsed_frame:2917
+ Finished 1 round
+ p1_HP:41
+ p2_HP:32
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:220
+ p2_HP:0
+ elapsed_frame:2623
+ Finished 3 round
+After game
+Start game
+E0720 12:49:35.856000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+ p1_HP:88
+ p2_HP:87
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:29
+ p2_HP:36
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:50
+ p2_HP:0
+ elapsed_frame:3262
+ Finished 3 round
+After game
+E0720 12:52:44.810000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+Start game
+ p1_HP:149
+ p2_HP:0
+ elapsed_frame:3410
+ Finished 1 round
+ p1_HP:106
+ p2_HP:0
+ elapsed_frame:2791
+ Finished 2 round
+ p1_HP:120
+ p2_HP:0
+ elapsed_frame:2744
+ Finished 3 round
+After game
+E0720 12:55:28.512000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+Start game
+ p1_HP:232
+ p2_HP:0
+ elapsed_frame:3473
+ Finished 1 round
+ p1_HP:130
+ p2_HP:0
+ elapsed_frame:3312
+ Finished 2 round
+ p1_HP:189
+ p2_HP:0
+ elapsed_frame:2796
+ Finished 3 round
+After game
+E0720 12:58:22.741000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+Start game
+ p1_HP:162
+ p2_HP:0
+ elapsed_frame:2987
+ Finished 1 round
+ p1_HP:159
+ p2_HP:21
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:67
+ p2_HP:0
+ elapsed_frame:3390
+ Finished 3 round
+After game
+E0720 13:01:23.709000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+Start game
+ p1_HP:98
+ p2_HP:0
+ elapsed_frame:3019
+ Finished 1 round
+ p1_HP:262
+ p2_HP:0
+ elapsed_frame:2820
+ Finished 2 round
+ p1_HP:201
+ p2_HP:0
+ elapsed_frame:3072
+ Finished 3 round
+After game
+E0720 13:04:06.835000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+Start game
+ p1_HP:74
+ p2_HP:0
+ elapsed_frame:2972
+ Finished 1 round
+ p1_HP:165
+ p2_HP:0
+ elapsed_frame:2628
+ Finished 2 round
+ p1_HP:58
+ p2_HP:0
+ elapsed_frame:3321
+ Finished 3 round
+After game
+E0720 13:06:50.254000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+Start game
+ p1_HP:46
+ p2_HP:0
+ elapsed_frame:3254
+ Finished 1 round
+ p1_HP:100
+ p2_HP:0
+ elapsed_frame:3156
+ Finished 2 round
+ p1_HP:78
+ p2_HP:0
+ elapsed_frame:2794
+ Finished 3 round
+After game
+Start game
+E0720 13:09:38.161000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+ p1_HP:193
+ p2_HP:0
+ elapsed_frame:2631
+ Finished 1 round
+ p1_HP:46
+ p2_HP:0
+ elapsed_frame:3460
+ Finished 2 round
+ p1_HP:146
+ p2_HP:0
+ elapsed_frame:3584
+ Finished 3 round
+After game
+Start game
+E0720 13:12:33.941000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+ p1_HP:165
+ p2_HP:29
+ elapsed_frame:3600
+ Finished 1 round
+ p1_HP:133
+ p2_HP:65
+ elapsed_frame:3600
+ Finished 2 round
+ p1_HP:201
+ p2_HP:0
+ elapsed_frame:2489
+ Finished 3 round
+After game
+Start game
+E0720 13:15:30.054000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+ p1_HP:94
+ p2_HP:0
+ elapsed_frame:2871
+ Finished 1 round
+ p1_HP:0
+ p2_HP:91
+ elapsed_frame:2782
+ Finished 2 round
+ p1_HP:48
+ p2_HP:0
+ elapsed_frame:3241
+ Finished 3 round
+After game
+Start game
+E0720 13:18:12.757000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+ p1_HP:172
+ p2_HP:0
+ elapsed_frame:3475
+ Finished 1 round
+ p1_HP:163
+ p2_HP:0
+ elapsed_frame:3464
+ Finished 2 round
+ p1_HP:259
+ p2_HP:0
+ elapsed_frame:3464
+ Finished 3 round
+After game
+E0720 13:21:20.721000000 20792 src/core/ext/filters/client_channel/http_proxy.cc:83] cannot parse value of 'http_proxy' env var. Error: INVALID_ARGUMENT: Could not parse 'scheme' from uri '127.0.0.1:11000'. Scheme must begin with an alpha character [A-Za-z].
+Start game
+ p1_HP:180
+ p2_HP:0
+ elapsed_frame:2550
+ Finished 1 round
+ p1_HP:0
+ p2_HP:4
+ elapsed_frame:3340
+ Finished 2 round
+ p1_HP:35
+ p2_HP:0
+ elapsed_frame:3338
+ Finished 3 round
+After game
+ 
+ win_ratio: 97.796, 
+ hp_diff_avg 0.884
